@@ -158,18 +158,35 @@
   .ovk-nav button.active{background:var(--white);color:var(--blue);box-shadow:0 1px 2px rgba(0,0,0,.08)}
   .ovk-table{border-collapse:separate;border-spacing:0;font-size:12px}
   .ovk-table th,.ovk-table td{padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+  /* every header cell sticks to top */
   .ovk-table thead th{position:sticky;top:0;background:var(--white);z-index:3;color:var(--muted);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.2px;text-align:center;vertical-align:bottom}
   .ovk-table thead th.rot{height:130px;padding:0}
   .ovk-table thead th.rot > div{width:26px;transform:rotate(180deg);writing-mode:vertical-rl;margin:0 auto;text-align:left;font-weight:600;text-transform:none;letter-spacing:0;font-size:11px;color:var(--ink);max-height:120px;overflow:hidden}
-  .ovk-table .mo-col{text-align:left;font-weight:700;position:sticky;left:0;background:var(--white);z-index:2;min-width:200px;border-right:1px solid var(--line)}
-  .ovk-table .mo-col .office-code{font-weight:400}
-  .ovk-table .total-col{position:sticky;background:var(--white);z-index:2;font-weight:800;font-variant-numeric:tabular-nums;text-align:center;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  /* body first two columns stick to the left */
+  .ovk-table td.mo-col{text-align:left;font-weight:700;position:sticky;left:0;background:var(--white);z-index:2;min-width:200px;border-right:1px solid var(--line)}
+  .ovk-table td.total-col{position:sticky;left:200px;background:var(--white);z-index:2;font-weight:800;font-variant-numeric:tabular-nums;text-align:center;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .ovk-table td.mo-col .office-code{font-weight:400}
+  /* HEADER corner cells: stick to BOTH top and left, above everything */
+  .ovk-table thead th.corner-mo{left:0;z-index:5;text-align:left;min-width:200px;border-right:1px solid var(--line)}
+  .ovk-table thead th.corner-total{left:200px;z-index:5;border-left:1px solid var(--line);border-right:1px solid var(--line)}
   .ovk-table tbody tr:hover td{background:var(--blue-050)}
-  .ovk-table tbody tr:hover .mo-col,.ovk-table tbody tr:hover .total-col{background:var(--blue-050)}
+  .ovk-table tbody tr:hover td.mo-col,.ovk-table tbody tr:hover td.total-col{background:var(--blue-050)}
   .cellchip{display:inline-block;min-width:30px;text-align:center;padding:2px 6px;border-radius:6px;font-size:10.5px;font-weight:800;font-style:normal}
   .cellchip.da{background:#e5f6ec;color:var(--green)}
   .cellchip.net{background:#fbe7e2;color:var(--red)}
+  .cellchip.fix{background:#e6eefb;color:#2f6fd1;box-shadow:inset 0 0 0 1.5px #b9cdf2}
   .cellchip.na{background:#eef2f4;color:var(--muted)}
+  .seg button.on-fix{background:#2f6fd1;color:#fff}
+  /* set-apart columns in the all-offices table */
+  th.col-info,td.col-info{background:#fff8ef}
+  td.col-info{color:#8a6d3b;font-weight:600}
+  th.col-info{color:#b06f12!important;border-top:2px solid #f0c98a}
+  th.col-q{border-top:2px solid var(--blue-100)}
+  .tbl-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-size:11.5px;color:var(--muted)}
+  .tbl-legend span{display:inline-flex;align-items:center;gap:7px}
+  .tbl-legend .sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+  .tbl-legend .sw-info{background:#fff8ef;border:1px solid #f0c98a}
+  .tbl-legend .sw-q{background:var(--blue-050);border:1px solid var(--blue-100)}
   .ovk-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:10px;align-items:center}
   .ovk-legend span{display:inline-flex;align-items:center;gap:6px}
 
@@ -280,9 +297,13 @@
         </div>
         <div style="max-height:460px;overflow:auto;border-radius:10px">
           <table>
-            <thead><tr id="tableHead"></tr></thead>
+            <thead id="tableHead"></thead>
             <tbody id="officeRows"></tbody>
           </table>
+        </div>
+        <div class="tbl-legend">
+          <span><i class="sw sw-info"></i> Справочно — не влияет на общую оценку</span>
+          <span><i class="sw sw-q"></i> Показатели качества — формируют общую оценку</span>
         </div>
       </div>
     </div>
@@ -320,10 +341,10 @@
           </select>
           <select id="reqDeptFilter" onchange="renderOffice()">
             <option value="">Все департаменты</option>
-            <option value="oro">ОРО</option>
-            <option value="video">Видеоаудит</option>
-            <option value="ovk">ОВКМС</option>
             <option value="help">Helpdesk</option>
+            <option value="gop">ГОП МО</option>
+            <option value="ovk">ОВКМС</option>
+            <option value="oro">ОРО</option>
           </select>
           <select id="reqSort" onchange="renderOffice()">
             <option value="status">Сорт.: по статусу</option>
@@ -357,7 +378,6 @@
       <div class="filters">
         <input id="ovkSearch" placeholder="Поиск по названию или коду МО…" oninput="renderOvkSummary()">
         <select id="ovkAggFilter" onchange="renderOvkSummary()"><option value="">Все агломерации</option></select>
-        <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)"><input type="checkbox" id="ovkFreeze" checked onchange="renderOvkSummary()"> зафиксировать первые колонки</label>
         <div class="spacer"></div>
         <span style="font-size:12px;color:var(--muted)" id="ovkRowCount"></span>
       </div>
@@ -367,8 +387,9 @@
       <div class="ovk-legend">
         <span><i class="cellchip da">Да</i> выполнено</span>
         <span><i class="cellchip net">Нет</i> не выполнено</span>
+        <span><i class="cellchip fix">Испр.</i> исправлено (проведены корректирующие действия)</span>
         <span><i class="cellchip na">—</i> не оценивалось</span>
-        <span style="margin-left:auto">итог = доля «Да» среди оценённых параметров</span>
+        <span style="margin-left:auto;flex-basis:100%;text-align:right">итог = доля «Да» и «Испр.» среди оценённых параметров</span>
       </div>
     </div>
     <div class="foot-note">Прототип · итоговая оценка отсюда подтягивается в «Управление розницей» и на страницу МО (показатель «оценка проверок ОВКМС»).</div>
@@ -458,9 +479,11 @@ const METRICS=[
   {key:'help',label:'Запросы Helpdesk',unit:'шт.',kind:'sum',higher:false,fmt:v=>fmt(v)},
   {key:'video',label:'Оценка видеоаудита',unit:'%',kind:'avg',higher:true,color:pctStatus,fmt:v=>Math.round(v)+'%'},
   {key:'ovk',label:'Оценка проверок ОВКМС',unit:'%',kind:'avg',higher:true,color:pctStatus,fmt:v=>Math.round(v)+'%'},
+  {key:'mystery',label:'Оценка тайного пациента',unit:'%',kind:'avg',higher:true,color:pctStatus,fmt:v=>Math.round(v)+'%'},
+  {key:'selfctrl',label:'Оценка самоконтроля',unit:'%',kind:'avg',higher:true,color:pctStatus,fmt:v=>Math.round(v)+'%'},
 ];
 const M=Object.fromEntries(METRICS.map(m=>[m.key,m]));
-const DASH_KPIS=['revenue','visits','appts','survey','gGoogle','gYandex','g2gis','oro','help','video','ovk'];
+const DASH_KPIS=['revenue','visits','appts','survey','gGoogle','gYandex','g2gis','oro','help','video','ovk','mystery','selfctrl'];
 
 const AGGS=[
   {id:'msk',name:'Москва',color:'#005266',offices:380},
@@ -491,6 +514,7 @@ AGGS.forEach(a=>{
       survey:rf(6.2,9.6,1),gGoogle:rf(3.4,5.0,1),gYandex:rf(3.2,4.9,1),g2gis:rf(3.5,5.0,1),
       oro:ri(0,9),help:ri(0,14),
       video:Math.max(40,Math.min(100,base+ri(-20,15))),ovk:Math.max(42,Math.min(100,base+ri(-18,14))),
+      mystery:Math.max(38,Math.min(100,base+ri(-24,12))),selfctrl:Math.max(45,Math.min(100,base+ri(-15,16))),
     };
     let score=Math.max(38,Math.min(100,base+ri(-22,22)));
     OFFICES.push({id:'MO-'+String(1000+uid).padStart(4,'0'),uid:uid++,name:'МО «'+NAMES[ri(0,NAMES.length-1)]+'»',city:a.name,agg:a.id,cur,score,status:pctStatus(score)});
@@ -550,23 +574,28 @@ function seedOvkData(){
       const r=ri(0,99);
       if(r<8){ans[p.id]='na';}                       // ~8% не оценивалось
       else if(ri(0,99)<base){ans[p.id]='da';}
-      else{ans[p.id]='net';}
+      else{
+        // из невыполненных часть уже исправлена офисом (корректирующие действия)
+        ans[p.id]= ri(0,99)<45 ? 'fix' : 'net';
+      }
     });
     OVK_DATA[o.uid]=ans;
   });
 }
 seedOvkData();
-// compute checklist result % for an office (доля "Да" среди оценённых)
+// compute checklist result % for an office (доля "Да"+"Испр." среди оценённых)
 function ovkResult(uid){
   const ans=OVK_DATA[uid]||{};
-  let scored=0,yes=0;
+  let scored=0,yes=0,fixed=0;
   OVK_PARAMS.forEach(p=>{
     if(!FIELD_TYPES[p.type].scored)return;
     const v=ans[p.id];
     if(v===undefined||v==='na')return;
-    scored++; if(v==='da')yes++;
+    scored++;
+    if(v==='da'){yes++;}
+    else if(v==='fix'){yes++;fixed++;}   // исправлено засчитывается как выполнено
   });
-  return {pct: scored? Math.round(yes/scored*100):0, scored, yes, total:OVK_PARAMS.filter(p=>FIELD_TYPES[p.type].scored).length};
+  return {pct: scored? Math.round(yes/scored*100):0, scored, yes, fixed, total:OVK_PARAMS.filter(p=>FIELD_TYPES[p.type].scored).length};
 }
 function fmt(n){return Math.round(n).toLocaleString('ru-RU');}
 function money(n){return (n/1000000).toFixed(2)+' млн';}
@@ -617,9 +646,10 @@ function aggMetric(offs,key,phase){
 function deltaPct(now,was){if(!was)return 0;return +(((now-was)/was)*100).toFixed(1);}
 function officeScore(o){
   const vid=officeMetric(o,'video','this'),ovk=officeMetric(o,'ovk','this');
+  const mys=officeMetric(o,'mystery','this'),slf=officeMetric(o,'selfctrl','this');
   const sv=officeMetric(o,'survey','this')*10;
   const rv=(officeMetric(o,'gGoogle','this')+officeMetric(o,'gYandex','this')+officeMetric(o,'g2gis','this'))/3*20;
-  return Math.round(vid*0.3+ovk*0.3+sv*0.2+rv*0.2);
+  return Math.round(vid*0.2+ovk*0.2+mys*0.15+slf*0.15+sv*0.15+rv*0.15);
 }
 
 function renderCompanyKpis(){
@@ -718,15 +748,22 @@ function focusAgg(id){
 }
 
 const TABLE_COLS=[
-  {k:'name',t:'Мед. офис',num:false},{k:'agg',t:'Агломерация',num:false},
-  {k:'score',t:'Общая оценка',num:true},
-  {k:'revenue',t:'Выручка (₽)',num:true},{k:'visits',t:'Визиты',num:true},{k:'appts',t:'Записи',num:true},
-  {k:'survey',t:'Опрос (/10)',num:true},{k:'gGoogle',t:'Google',num:true},{k:'gYandex',t:'Яндекс',num:true},{k:'g2gis',t:'2ГИС',num:true},
-  {k:'oro',t:'ОРО',num:true},{k:'help',t:'Helpdesk',num:true},{k:'video',t:'Видеоаудит',num:true},{k:'ovk',t:'ОВКМС',num:true},
+  {k:'name',t:'Мед. офис',num:false,grp:''},{k:'agg',t:'Агломерация',num:false,grp:''},
+  {k:'score',t:'Общая оценка',num:true,grp:''},
+  {k:'revenue',t:'Выручка (₽)',num:true,grp:'info'},{k:'visits',t:'Визиты',num:true,grp:'info'},{k:'appts',t:'Записи',num:true,grp:'info'},
+  {k:'survey',t:'Опрос (/10)',num:true,grp:'q'},{k:'gGoogle',t:'Google',num:true,grp:'q'},{k:'gYandex',t:'Яндекс',num:true,grp:'q'},{k:'g2gis',t:'2ГИС',num:true,grp:'q'},
+  {k:'oro',t:'ОРО',num:true,grp:'q'},{k:'help',t:'Helpdesk',num:true,grp:'q'},{k:'video',t:'Видеоаудит',num:true,grp:'q'},{k:'ovk',t:'ОВКМС',num:true,grp:'q'},
+  {k:'mystery',t:'Тайный пациент',num:true,grp:'q'},{k:'selfctrl',t:'Самоконтроль',num:true,grp:'q'},
 ];
 let sortKey='revenue',sortDir=-1;
 function sortBy(k){if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='name'||k==='agg')?1:-1;}renderTable();}
-function renderHead(){document.getElementById('tableHead').innerHTML=TABLE_COLS.map(c=>'<th class="'+(c.num?'num':'')+'" data-k="'+c.k+'" onclick="sortBy(\''+c.k+'\')">'+c.t+'</th>').join('');}
+function renderHead(){
+  document.getElementById('tableHead').innerHTML='<tr>'
+    +TABLE_COLS.map(c=>{
+      const cls=(c.num?'num':'')+(c.grp==='info'?' col-info':'')+(c.grp==='q'?' col-q':'');
+      return '<th class="'+cls.trim()+'" data-k="'+c.k+'" onclick="sortBy(\''+c.k+'\')">'+c.t+'</th>';
+    }).join('')+'</tr>';
+}
 function renderTable(){
   const q=document.getElementById('search').value.toLowerCase().trim();
   const af=document.getElementById('aggFilter').value;const sf=document.getElementById('statusFilter').value;
@@ -747,45 +784,45 @@ function renderTable(){
     if(['visits','appts','oro','help'].includes(k))return fmt(officeMetric(o,k,'this'));
     if(k==='survey')return officeMetric(o,k,'this').toFixed(1);
     if(['gGoogle','gYandex','g2gis'].includes(k))return officeMetric(o,k,'this').toFixed(1);
-    if(['video','ovk'].includes(k))return Math.round(officeMetric(o,k,'this'))+'%';return '';};
+    if(['video','ovk','mystery','selfctrl'].includes(k))return Math.round(officeMetric(o,k,'this'))+'%';return '';};
+  const pctCol=(o,k)=>'<td class="num score-'+pctStatus(officeMetric(o,k,'this'))+'">'+cell(o,k)+'</td>';
   document.getElementById('officeRows').innerHTML=rows.map(o=>
     '<tr onclick="openOffice('+o.uid+')">'
     +'<td><div class="office-name">'+o.name+'</div><div class="office-code">'+o.id+' · '+o.city+'</div></td>'
     +'<td>'+aggById(o.agg).name+'</td>'
     +'<td class="num score-cell score-'+o._status+'">'+o._score+'%</td>'
-    +'<td class="num">'+cell(o,'revenue')+'</td>'
-    +'<td class="num">'+cell(o,'visits')+'</td>'
-    +'<td class="num">'+cell(o,'appts')+'</td>'
+    +'<td class="num col-info">'+cell(o,'revenue')+'</td>'
+    +'<td class="num col-info">'+cell(o,'visits')+'</td>'
+    +'<td class="num col-info">'+cell(o,'appts')+'</td>'
     +'<td class="num">'+cell(o,'survey')+'</td>'
     +'<td class="num">'+cell(o,'gGoogle')+'</td>'
     +'<td class="num">'+cell(o,'gYandex')+'</td>'
     +'<td class="num">'+cell(o,'g2gis')+'</td>'
     +'<td class="num">'+cell(o,'oro')+'</td>'
     +'<td class="num">'+cell(o,'help')+'</td>'
-    +'<td class="num score-'+pctStatus(officeMetric(o,'video','this'))+'">'+cell(o,'video')+'</td>'
-    +'<td class="num score-'+pctStatus(officeMetric(o,'ovk','this'))+'">'+cell(o,'ovk')+'</td></tr>'
+    +pctCol(o,'video')+pctCol(o,'ovk')+pctCol(o,'mystery')+pctCol(o,'selfctrl')+'</tr>'
   ).join('')||'<tr><td colspan="'+TABLE_COLS.length+'" class="empty">Ничего не найдено</td></tr>';
   document.getElementById('rowCount').textContent=rows.length+' МО в выборке';
   updateSortIndicators();
 }
 function updateSortIndicators(){
-  document.querySelectorAll('#tableHead th').forEach(th=>{
+  document.querySelectorAll('#tableHead th[data-k]').forEach(th=>{
     const base=(TABLE_COLS.find(c=>c.k===th.dataset.k)||{}).t||'';
     if(th.dataset.k===sortKey){th.innerHTML=base+(sortDir>0?' ▲':' ▼');th.style.color='var(--blue)';}
     else{th.innerHTML=base+' ↕';th.style.color='';}});
 }
 
-const DEPTS={oro:{cls:'oro',name:'ОРО'},video:{cls:'video',name:'Видеоаудит'},ovk:{cls:'ovk',name:'ОВКМС'},help:{cls:'help',name:'Helpdesk'}};
+const DEPTS={help:{cls:'help',name:'Helpdesk'},gop:{cls:'video',name:'ГОП МО'},ovk:{cls:'ovk',name:'ОВКМС'},oro:{cls:'oro',name:'ОРО'}};
 const REQ_TEMPLATES=[
   {d:'oro',t:'Претензия клиента по времени ожидания',b:'Клиент оставил отзыв: ожидание в очереди более 25 минут в утренние часы. Просьба прокомментировать ситуацию и меры.',s:'new'},
-  {d:'video',t:'Замечание по итогам видеоаудита',b:'На записи от 12.06 зафиксировано отсутствие маски у администратора в зоне приёма. Требуется ответ ответственного.',s:'prog'},
+  {d:'gop',t:'Запрос ГОП МО: сверка остатков расходников',b:'Требуется провести сверку остатков расходных материалов и передать данные до конца недели. Подтвердите выполнение.',s:'prog'},
   {d:'ovk',t:'Нарушение по чек-листу визита ОВКМС',b:'По итогам визита: не заполнен журнал температурного режима холодильника за 2 дня. Указать причину и план исправления.',s:'new'},
   {d:'help',t:'Запрос Helpdesk: не печатает термопринтер',b:'Заявка №HD-4821. Термопринтер штрих-кодов не отвечает. Подтвердите, актуальна ли проблема после перезагрузки.',s:'prog'},
   {d:'help',t:'Запрос Helpdesk: обновление АРМ',b:'Заявка №HD-4930. Плановое обновление АРМ назначено на 03.07, 20:00. Подтвердите готовность офиса.',s:'new'},
-  {d:'oro',t:'Благодарность клиента — переслать сотруднику',b:'Клиент отметил внимательность медсестры Ирины. Просьба передать благодарность и подтвердить получение.',s:'prog'},
+  {d:'gop',t:'Запрос ГОП МО: график работы на праздники',b:'Просьба согласовать и подтвердить график работы медофиса на праздничные дни. Ответ ожидается до 25.06.',s:'prog'},
 ];
 const DONE_TEMPLATES=[
-  {d:'video',t:'Устранено замечание видеоаудита',b:'Ранее выявленное несоответствие по форме одежды устранено, приложено фото. Проверка закрыта.'},
+  {d:'gop',t:'Заявка ГОП МО закрыта',b:'Сверка остатков проведена, расхождений не выявлено. Данные переданы в срок.'},
   {d:'help',t:'Заявка Helpdesk закрыта',b:'Заявка №HD-4712 по настройке весов выполнена, оборудование работает штатно.'},
   {d:'ovk',t:'План исправления ОВКМС выполнен',b:'Журнал температурного режима восстановлен, введён ежедневный контроль. Замечание снято.'},
 ];
@@ -797,7 +834,7 @@ function requestsFor(o){
   return arr;
 }
 const savedReplies={};let currentOffice=null;
-const STATUS_ORDER={new:0,prog:1,done:2};const DEPT_ORDER={oro:0,video:1,ovk:2,help:3};
+const STATUS_ORDER={new:0,prog:1,done:2};const DEPT_ORDER={help:0,gop:1,ovk:2,oro:3};
 function openOffice(uid){currentOffice=OFFICES.find(x=>x.uid===uid);renderOffice();showView('office');}
 function renderOffice(){
   const o=currentOffice;if(!o)return;
@@ -879,17 +916,16 @@ function goOvk(page){
 function renderOvkSummary(){
   const q=(document.getElementById('ovkSearch').value||'').toLowerCase().trim();
   const af=document.getElementById('ovkAggFilter').value;
-  const freeze=document.getElementById('ovkFreeze').checked;
   let offs=OFFICES.filter(o=>{
     if(af&&o.agg!==af)return false;
     if(q&&!(o.name.toLowerCase().includes(q)||o.id.toLowerCase().includes(q)))return false;
     return true;
   }).slice(0,120); // cap rows for prototype performance
-  const chip={da:'<i class="cellchip da">Да</i>',net:'<i class="cellchip net">Нет</i>',na:'<i class="cellchip na">—</i>'};
-  // header
+  const chip={da:'<i class="cellchip da">Да</i>',net:'<i class="cellchip net">Нет</i>',fix:'<i class="cellchip fix">Испр.</i>',na:'<i class="cellchip na">—</i>'};
+  // header — corner cells always stick to both axes
   let head='<thead><tr>';
-  head+='<th class="mo-col" style="text-align:left;'+(freeze?'':'position:static')+'">Мед. офис</th>';
-  head+='<th class="total-col" style="left:200px;'+(freeze?'':'position:static')+'">Итог</th>';
+  head+='<th class="corner-mo" style="text-align:left">Мед. офис</th>';
+  head+='<th class="corner-total">Итог</th>';
   OVK_PARAMS.forEach((p,i)=>{head+='<th class="rot" title="'+p.label+'"><div>'+(i+1)+'. '+p.label+'</div></th>';});
   head+='</tr></thead>';
   // body
@@ -897,8 +933,8 @@ function renderOvkSummary(){
   offs.forEach(o=>{
     const ans=OVK_DATA[o.uid]||{};const res=ovkResult(o.uid);const st=pctStatus(res.pct);
     body+='<tr>';
-    body+='<td class="mo-col" style="'+(freeze?'':'position:static')+'"><div class="office-name">'+o.name+'</div><div class="office-code">'+o.id+' · '+o.city+'</div></td>';
-    body+='<td class="total-col score-'+st+'" style="left:200px;'+(freeze?'':'position:static')+'">'+res.pct+'%<div style="font-size:9px;color:var(--muted);font-weight:600">'+res.yes+'/'+res.scored+'</div></td>';
+    body+='<td class="mo-col"><div class="office-name">'+o.name+'</div><div class="office-code">'+o.id+' · '+o.city+'</div></td>';
+    body+='<td class="total-col score-'+st+'">'+res.pct+'%<div style="font-size:9px;color:var(--muted);font-weight:600">'+res.yes+'/'+res.scored+'</div></td>';
     OVK_PARAMS.forEach(p=>{
       if(p.type==='yesno'){body+='<td style="text-align:center">'+(chip[ans[p.id]]||chip.na)+'</td>';}
       else{const v=ans[p.id];body+='<td style="text-align:center;color:var(--muted)">'+(v!==undefined&&v!==''?v:'—')+'</td>';}
@@ -930,6 +966,7 @@ function renderOvkEntry(){
       control='<div class="seg">'
         +'<button class="'+(val==='da'?'on-da':'')+'" onclick="setDraft(\''+p.id+'\',\'da\')">Да</button>'
         +'<button class="'+(val==='net'?'on-net':'')+'" onclick="setDraft(\''+p.id+'\',\'net\')">Нет</button>'
+        +'<button class="'+(val==='fix'?'on-fix':'')+'" onclick="setDraft(\''+p.id+'\',\'fix\')">Испр.</button>'
         +'<button class="'+(val===undefined||val==='na'?'on-na':'')+'" onclick="setDraft(\''+p.id+'\',\'na\')">Не оцен.</button></div>';
     } else if(p.type==='select'){
       control='<select class="userval" onchange="setDraft(\''+p.id+'\',this.value)"><option value="">—</option>'
@@ -951,10 +988,11 @@ function setDraft(pid,val){ovkDraft[pid]=val;
   renderOvkEntry();
 }
 function updateOvkLive(){
-  let scored=0,yes=0;
-  OVK_PARAMS.forEach(p=>{if(p.type!=='yesno')return;const v=ovkDraft[p.id];if(v===undefined||v==='na')return;scored++;if(v==='da')yes++;});
+  let scored=0,yes=0,fixed=0;
+  OVK_PARAMS.forEach(p=>{if(p.type!=='yesno')return;const v=ovkDraft[p.id];if(v===undefined||v==='na')return;scored++;if(v==='da')yes++;else if(v==='fix'){yes++;fixed++;}});
   const pct=scored?Math.round(yes/scored*100):0;const st=pctStatus(pct);
-  document.getElementById('ovkEntryLive').innerHTML='Текущий итог: <span class="score-'+st+'">'+pct+'%</span> <span style="color:var(--muted);font-weight:600;font-size:12px">('+yes+' «Да» из '+scored+' оценённых)</span>';
+  const fixTxt=fixed?' · в т.ч. '+fixed+' испр.':'';
+  document.getElementById('ovkEntryLive').innerHTML='Текущий итог: <span class="score-'+st+'">'+pct+'%</span> <span style="color:var(--muted);font-weight:600;font-size:12px">('+yes+' «Да»/«Испр.» из '+scored+' оценённых'+fixTxt+')</span>';
 }
 function resetOvkEntry(){ovkDraft={};ovkEntryUid=+document.getElementById('ovkEntryOffice').value;renderOvkEntry();}
 function saveOvkEntry(){
