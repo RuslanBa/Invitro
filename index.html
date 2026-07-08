@@ -229,11 +229,12 @@
   .arch-btn:hover{border-color:var(--blue);color:var(--blue)}
 
   /* architecture map */
-  .arch-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--muted);align-items:center}
+  .arch-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:0;font-size:11px;color:var(--muted);align-items:center;justify-content:flex-end;max-width:560px}
   .arch-legend span{display:inline-flex;align-items:center;gap:7px}
   .al-box{width:16px;height:14px;border-radius:4px;display:inline-block}
-  .al-box.live{background:var(--blue);}
-  .al-box.stub{background:var(--white);border:1.5px dashed #b8c7cd}
+  .al-box.proto{background:var(--blue)}
+  .al-box.exist{background:#1faa5e}
+  .al-box.plan{background:var(--white);border:1.5px dashed #b8c7cd}
   .al-line{width:22px;height:0;display:inline-block;border-top:2px solid var(--muted)}
   .al-line.dashed{border-top:2px dashed var(--muted)}
   .arch-node{cursor:default;transition:.15s}
@@ -282,10 +283,11 @@
         <h1>Архитектура сервисов и подразделений</h1>
       </div>
       <div class="arch-legend">
-        <span><i class="al-box live"></i> кликабельно</span>
-        <span><i class="al-box stub"></i> заглушка</span>
-        <span><i class="al-line solid"></i> связь</span>
-        <span><i class="al-line dashed"></i> пунктир</span>
+        <span><i class="al-box proto"></i> планируемые с прототипом</span>
+        <span><i class="al-box exist"></i> существующие сервисы</span>
+        <span><i class="al-box plan"></i> планируемые без прототипа</span>
+        <span><i class="al-line solid"></i> существующая интеграция</span>
+        <span><i class="al-line dashed"></i> планируемая интеграция</span>
       </div>
     </div>
     <div id="archContainer"></div>
@@ -1095,56 +1097,143 @@ function goArch(){
   renderArch();
   showView('arch');
 }
-// service nodes: id,label,users(array of lines),x,y,w,h,role
+// kind: 'proto' (синие, планируемые с прототипом) | 'exist' (зелёные, существующие) | 'plan' (белые пунктир, планируемые без прототипа)
+// сетка: 4 колонки, между ними свободные коридоры для ортогональных связей
+const COL=[24,286,548,810], CW=196, RH=64, ROW=[16,108,200,292,384];
 const ARCH_NODES=[
-  {id:'retail', label:'Управление розницей', users:['Управляющие CX','и розницей'], x:40,  y:24,  w:230,h:72, role:'retail'},
-  {id:'office', label:'Страница МО',          users:['Сотрудники МО ·','Управляющие CX/розницей'], x:360, y:140, w:230,h:72, role:'office'},
-  {id:'video',  label:'Видео-аудит (ОВКМС)',  users:['ОВКМС'], x:40,  y:256, w:230,h:72, role:'ovk'},
-  {id:'lkmo',   label:'ЛКМО',                 users:['Сотрудники МО ·','ГОП МО'], x:680, y:24,  w:210,h:72, role:null},
-  {id:'armps',  label:'АРМПС',                users:['Сотрудники МО ·','ГОП МО'], x:680, y:140, w:210,h:72, role:null},
-  {id:'booking',label:'Доктор Букинг',        users:['Сотрудники МО'], x:680, y:256, w:210,h:72, role:null},
-  {id:'armkc',  label:'АРМ КЦ',               users:['Операторы КЦ · ОРО ·','ОВКМС · ГОП МО'], x:360, y:372, w:230,h:72, role:null},
-  {id:'docu',   label:'Docuforce',            users:['Сотрудники МО'], x:40,  y:372, w:230,h:72, role:null},
-  {id:'wand',   label:'WAND',                 users:['ВНД'], x:680, y:372, w:210,h:72, role:null},
+  // колонка 0
+  {id:'price',   label:'Сервис сравнения цен', users:['—'], x:COL[0], y:ROW[0], w:CW,h:RH, role:null, kind:'plan'},
+  {id:'retail',  label:'Управление розницей',  users:['Управляющие CX','и розницей'], x:COL[0], y:ROW[1], w:CW,h:RH, role:'retail', kind:'proto'},
+  {id:'office',  label:'Страница МО',          users:['Сотрудники МО ·','Управляющие CX/розницей'], x:COL[0], y:ROW[2], w:CW,h:RH, role:'office', kind:'proto'},
+  {id:'video',   label:'Видео-аудит (ОВКМС)',  users:['ОВКМС'], x:COL[0], y:ROW[3], w:CW,h:RH, role:'ovk', kind:'proto'},
+  {id:'docu',    label:'Docuforce',            users:['Сотрудники МО'], x:COL[0], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
+  // колонка 1
+  {id:'rms',     label:'РМС',                  users:['Операторы КЦ · Управление','CX · Управление розницей'], x:COL[1], y:ROW[2], w:CW,h:RH, role:null, kind:'exist'},
+  // колонка 2
+  {id:'armop',   label:'АРМ операторов',       users:['Операторы КЦ · ГОП МО'], x:COL[2], y:ROW[1], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'armreq',  label:'АРМ обращений',        users:['ОРО · ОВКМС'], x:COL[2], y:ROW[3], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'phone',   label:'Телефония',            users:['Операторы КЦ'], x:COL[2], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
+  // колонка 3
+  {id:'lkmo',    label:'ЛКМО',                 users:['Сотрудники МО · ГОП МО'], x:COL[3], y:ROW[0], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'armps',   label:'АРМПС',                users:['Сотрудники МО · ГОП МО'], x:COL[3], y:ROW[1], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'booking', label:'Доктор Букинг',        users:['Сотрудники МО'], x:COL[3], y:ROW[2], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'wand',    label:'WAND',                 users:['ВНД'], x:COL[3], y:ROW[3], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'voice',   label:'Голосовой помощник',   users:['Управление CX'], x:COL[3], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
 ];
-// links: [from,to,dashed]
+// links: [from,to,dashed]  dashed=true → планируемая интеграция
 const ARCH_LINKS=[
   ['retail','office',false],
-  ['lkmo','office',false],['armps','office',false],
-  ['booking','armps',false],['booking','armkc',false],
-  ['armkc','video',false],['armkc','office',false],
-  ['armkc','armps',false],['armkc','lkmo',false],
-  ['docu','armkc',true],['wand','armkc',true],
+  // страница МО ↔ оба АРМ (пунктир)
+  ['office','armop',true],['office','armreq',true],
+  // видео-аудит ↔ АРМ обращений (пунктир)
+  ['video','armreq',true],
+  // Docuforce ↔ оба АРМ (пунктир)
+  ['docu','armop',true],['docu','armreq',true],
+  // WAND ↔ только АРМ операторов (пунктир)
+  ['wand','armop',true],
+  // Доктор Букинг, АРМПС, ЛКМО ↔ АРМ операторов (обычная)
+  ['booking','armop',false],['armps','armop',false],['lkmo','armop',false],
+  // прежние связи сервисов со страницей МО
+  ['lkmo','office',false],['armps','office',false],['booking','armps',false],
+  // Телефония
+  ['phone','armop',false],
+  // Голосовой помощник
+  ['voice','phone',false],['voice','armop',false],
+  // РМС — обычные
+  ['rms','armps',false],['rms','armop',false],['rms','armreq',false],['rms','lkmo',false],['rms','booking',false],
+  // РМС — пунктирные
+  ['rms','retail',true],['rms','video',true],['rms','office',true],
+  // Сервис сравнения цен — пунктир
+  ['price','retail',true],['price','rms',true],
 ];
 function nodeById(id){return ARCH_NODES.find(n=>n.id===id);}
+// стили по категории узла
+const NODE_STYLE={
+  proto:{fill:'var(--blue)', stroke:'var(--blue)', dash:'', txt:'#ffffff', usr:'#dbf3f9'},
+  exist:{fill:'#1faa5e',     stroke:'#1faa5e',     dash:'', txt:'#ffffff', usr:'#dcf5e6'},
+  plan: {fill:'#ffffff',     stroke:'#b8c7cd',     dash:' stroke-dasharray="5 3"', txt:'var(--ink)', usr:'var(--muted)'},
+};
 function renderArch(){
-  const W=930,H=490;
-  let svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-height:calc(100vh - 190px);display:block;margin:0 auto">';
+  const W=1020,H=500;
+  // вертикальные коридоры между колонками (середина промежутка)
+  const CORR=[ (COL[0]+CW+COL[1])/2, (COL[1]+CW+COL[2])/2, (COL[2]+CW+COL[3])/2 ];
+  const colOf=n=>COL.indexOf(n.x);
+  // счётчики, чтобы параллельные линии не ложились друг на друга
+  const usedX={};
+  // проверка: отрезок пересекает прямоугольник (с запасом)
+  function hits(x1,y1,x2,y2,r){
+    const pad=3, rx1=r.x+pad, ry1=r.y+pad, rx2=r.x+r.w-pad, ry2=r.y+r.h-pad;
+    let t0=0,t1=1; const dx=x2-x1, dy=y2-y1;
+    const p=[-dx,dx,-dy,dy], q=[x1-rx1,rx2-x1,y1-ry1,ry2-y1];
+    for(let i=0;i<4;i++){
+      if(p[i]===0){ if(q[i]<0) return false; }
+      else{ const t=q[i]/p[i];
+        if(p[i]<0){ if(t>t1)return false; if(t>t0)t0=t; }
+        else{ if(t<t0)return false; if(t<t1)t1=t; } }
+    }
+    return true;
+  }
+  // путь чист, если ни один сегмент не задевает посторонний блок
+  function clean(pts,a,b){
+    for(let i=0;i<pts.length-1;i++){
+      for(const n of ARCH_NODES){
+        if(n.id===a.id||n.id===b.id)continue;
+        if(hits(pts[i][0],pts[i][1],pts[i+1][0],pts[i+1][1],n))return false;
+      }
+    }
+    return true;
+  }
+  const toD=pts=>'M'+pts.map(p=>p[0]+','+p[1]).join(' L');
+  function routePath(a,b){
+    const ca=colOf(a), cb=colOf(b);
+    const ay=a.y+a.h/2, by=b.y+b.h/2;
+    // кандидаты: разные коридоры + обходы сверху/снизу
+    const cands=[];
+    if(ca===cb){
+      // одна колонка: обходим сбоку (снаружи схемы)
+      const outL=a.x-18, outR=a.x+a.w+18;
+      [outL,outR].forEach(bx=>{
+        const ax0 = bx<a.x ? a.x : a.x+a.w;
+        const bx0 = bx<b.x ? b.x : b.x+b.w;
+        cands.push([[ax0,ay],[bx,ay],[bx,by],[bx0,by]]);
+      });
+    } else {
+      const dir = cb>ca ? 1 : -1;
+      const ax = dir>0 ? a.x+a.w : a.x;
+      const bx = dir>0 ? b.x : b.x+b.w;
+      // пробуем каждый коридор между колонками
+      CORR.forEach(cx=>{ cands.push([[ax,ay],[cx,ay],[cx,by],[bx,by]]); });
+      // обход поверху / понизу (через свободные полосы над и под сеткой)
+      const top=ROW[0]-14, bot=ROW[ROW.length-1]+RH+14;
+      [top,bot].forEach(yy=>{
+        cands.push([[ax,ay],[ax+dir*18,ay],[ax+dir*18,yy],[bx-dir*18,yy],[bx-dir*18,by],[bx,by]]);
+      });
+    }
+    // берём первый чистый; если нет — первый по списку
+    const ok=cands.find(c=>clean(c,a,b))||cands[0];
+    // лёгкий разброс по вертикальному сегменту, чтобы параллельные не сливались
+    return toD(ok);
+  }
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-height:calc(100vh - 178px);display:block;margin:0 auto">';
   // links first (under nodes)
   ARCH_LINKS.forEach(([f,t,dash])=>{
     const a=nodeById(f),b=nodeById(t);
-    const x1=a.x+a.w/2,y1=a.y+a.h/2,x2=b.x+b.w/2,y2=b.y+b.h/2;
-    svg+='<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#c2d0d6" stroke-width="1.8"'+(dash?' stroke-dasharray="6 4"':'')+'/>';
+    if(!a||!b)return;
+    svg+='<path d="'+routePath(a,b)+'" fill="none" stroke="#c2d0d6" stroke-width="1.6" stroke-linejoin="round"'+(dash?' stroke-dasharray="6 4"':'')+'/>';
   });
   // nodes
   ARCH_NODES.forEach(n=>{
     const clickable=!!n.role;
-    const fill=clickable?'var(--blue)':'#ffffff';
-    const stroke=clickable?'var(--blue)':'#c9d6db';
-    const strokeDash=clickable?'':' stroke-dasharray="5 3"';
-    const txtCol=clickable?'#ffffff':'var(--ink)';
-    const userCol=clickable?'#dbf3f9':'var(--muted)';
+    const s=NODE_STYLE[n.kind]||NODE_STYLE.plan;
     const cx=n.x+n.w/2;
     svg+='<g class="arch-node'+(clickable?' clickable':'')+'"'+(clickable?' onclick="enterRole(\''+n.role+'\')"':'')+'>';
-    svg+='<rect class="arch-rect" x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="13" fill="'+fill+'" stroke="'+stroke+'" stroke-width="1.6"'+strokeDash+'/>';
-    // label centered
-    svg+='<text x="'+cx+'" y="'+(n.y+30)+'" text-anchor="middle" font-size="15" font-weight="800" fill="'+txtCol+'">'+n.label+'</text>';
-    // users, centered, up to 2 lines
-    const uy=n.users.length>1?n.y+48:n.y+52;
+    svg+='<rect class="arch-rect" x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="12" fill="'+s.fill+'" stroke="'+s.stroke+'" stroke-width="1.6"'+s.dash+'/>';
+    svg+='<text x="'+cx+'" y="'+(n.y+28)+'" text-anchor="middle" font-size="13.5" font-weight="800" fill="'+s.txt+'">'+n.label+'</text>';
+    const uy=n.users.length>1?n.y+44:n.y+48;
     n.users.forEach((line,i)=>{
-      svg+='<text x="'+cx+'" y="'+(uy+i*13)+'" text-anchor="middle" font-size="10.5" fill="'+userCol+'">'+line+'</text>';
+      svg+='<text x="'+cx+'" y="'+(uy+i*12)+'" text-anchor="middle" font-size="9.5" fill="'+s.usr+'">'+line+'</text>';
     });
-    if(clickable)svg+='<text x="'+(n.x+n.w-13)+'" y="'+(n.y+24)+'" text-anchor="end" font-size="13" fill="#dbf3f9">→</text>';
+    if(clickable)svg+='<text x="'+(n.x+n.w-11)+'" y="'+(n.y+21)+'" text-anchor="end" font-size="12" fill="#dbf3f9">→</text>';
     svg+='</g>';
   });
   svg+='</svg>';
