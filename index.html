@@ -224,6 +224,34 @@
   .opt-row button{flex-shrink:0}
   .modal-foot{display:flex;justify-content:flex-end;gap:10px;padding:16px 22px;border-top:1px solid var(--line)}
 
+  /* vaccine stock */
+  .vacc-updated{font-size:12px;color:var(--muted);font-weight:600}
+  .vacc-avail{font-size:13px;font-weight:800;margin-top:3px}
+  .vacc-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px}
+  .vacc-table thead th{position:sticky;top:0;background:var(--white);z-index:2;text-align:center;padding:9px 8px;color:var(--muted);font-weight:700;font-size:10.5px;text-transform:uppercase;letter-spacing:.2px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .vacc-table th.prod{text-align:left;position:sticky;left:0;z-index:3;min-width:280px;border-right:1px solid var(--line)}
+  .vacc-table td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:center}
+  .vacc-table td.prod{text-align:left;position:sticky;left:0;background:var(--white);z-index:1;border-right:1px solid var(--line)}
+  .vacc-table tbody tr:hover td{background:var(--blue-050)}
+  .vacc-table tbody tr:hover td.prod{background:var(--blue-050)}
+  .vacc-art{font-weight:800;color:var(--blue-dark);font-size:11px}
+  .vacc-name{font-size:12px;line-height:1.3;max-width:380px}
+  .vacc-inp{width:62px;padding:6px 6px;border:1px solid var(--line);border-radius:7px;font-family:inherit;font-size:12.5px;text-align:center;font-variant-numeric:tabular-nums}
+  .vacc-inp:focus{outline:none;border-color:var(--blue)}
+  .vacc-date{width:118px;padding:6px 6px;border:1px solid var(--line);border-radius:7px;font-family:inherit;font-size:12px}
+  .vacc-date:focus{outline:none;border-color:var(--blue)}
+  .vacc-stock{font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
+  .vacc-stock.zero{color:var(--red)}
+  .vacc-stock.low{color:var(--amber)}
+  .vacc-stock.ok{color:var(--green)}
+  .vacc-log-row{display:flex;align-items:center;gap:12px;padding:9px 4px;border-bottom:1px solid var(--line);font-size:12.5px}
+  .vacc-log-row:last-child{border-bottom:none}
+  .vacc-log-date{color:var(--muted);font-weight:700;min-width:88px;font-variant-numeric:tabular-nums}
+  .vacc-log-art{font-weight:800;color:var(--blue-dark);min-width:64px}
+  .vacc-log-field{background:var(--blue-050);color:var(--blue-dark);padding:2px 8px;border-radius:6px;font-size:11px;font-weight:700}
+  .vacc-log-chg{color:var(--muted);font-variant-numeric:tabular-nums}
+  .vacc-log-name{flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
   /* arch button in topbar */
   .arch-btn{padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700;background:var(--white);border:1px solid var(--line);color:var(--ink)}
   .arch-btn:hover{border-color:var(--blue);color:var(--blue)}
@@ -417,6 +445,9 @@
       </div>
 
       <div>
+        <div class="panel panel-pad" style="margin-bottom:14px">
+          <button class="btn btn-primary" style="width:100%;padding:11px" onclick="openVaccines()">💉 Управление остатками вакцин →</button>
+        </div>
         <div class="panel panel-pad">
           <h2 style="margin-bottom:10px;font-size:15px;font-weight:700">Показатели за период</h2>
           <div class="mini-metrics" id="officeMetrics"></div>
@@ -424,6 +455,43 @@
       </div>
     </div>
     <div class="foot-note">Прототип · МО видит адресованные ему запросы и может ответить по каждому.</div>
+  </div>
+
+  <!-- ============ MO: VACCINE STOCK ============ -->
+  <div id="view-vaccines" class="view">
+    <div class="page-head">
+      <div>
+        <div class="crumbs"><span class="breadcrumb-link" onclick="backToOffice()">← Страница МО</span> · <span id="vaccCrumb"></span></div>
+        <h1>Управление остатками вакцин</h1>
+      </div>
+      <div style="text-align:right">
+        <div class="vacc-updated" id="vaccUpdated"></div>
+        <div class="vacc-avail" id="vaccAvailBadge"></div>
+      </div>
+    </div>
+    <div class="panel panel-pad">
+      <div class="filters">
+        <input id="vaccSearch" placeholder="Поиск по артикулу или названию…" oninput="renderVaccTable()">
+        <label style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--muted);cursor:pointer"><input type="checkbox" id="vaccOnlyZero" onchange="renderVaccTable()" style="margin:0;flex-shrink:0"> только отсутствующие</label>
+        <div class="spacer"></div>
+        <span style="font-size:12px;color:var(--muted)" id="vaccCount"></span>
+        <button class="btn btn-primary" onclick="saveVacc()">Сохранить изменения</button>
+      </div>
+      <div style="max-height:520px;overflow:auto;border-radius:10px;border:1px solid var(--line)">
+        <table class="vacc-table" id="vaccTable"></table>
+      </div>
+      <div style="font-size:11.5px;color:var(--muted);margin-top:8px">Остаток рассчитывается автоматически: базовый остаток + приход − вакцинация − утилизация. <span id="vaccSaveMsg" style="color:var(--green);font-weight:700"></span></div>
+    </div>
+
+    <div style="margin-top:14px">
+      <button class="btn btn-ghost" id="vaccLogBtn" onclick="toggleVaccLog()">История изменений (за 30 дней) ▾</button>
+      <div class="panel" id="vaccLogPanel" style="display:none;margin-top:10px">
+        <div class="panel-pad">
+          <div id="vaccLogList"></div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-note">Прототип · изменения сохраняются в памяти сессии и отражаются в отчёте розницы.</div>
   </div>
 
   <!-- ============ ОВКМС: SUMMARY ============ -->
@@ -582,6 +650,144 @@ AGGS.forEach(a=>{
   }
 });
 const SCALE=2000/OFFICES.length;
+const VACCINES=[{a:"ВРНД2",n:"Вакцинация препаратом «Пентаксим» для профилактики дифтерии, столбняка, коклюша, полиомиелита и инфекций, вызываемых Haemophilus influenzae тип b"},
+{a:"ВРНД7",n:"Вакцинация препаратом Хаврикс для профилактики гепатита А (от 16 лет)"},
+{a:"ВРНД8",n:"Вакцинация препаратом Хаврикс для профилактики  гепатита А (дети-от года до 16 лет)"},
+{a:"ВРНД9",n:"Вакцинация препаратом \"Шигеллвак\" для профилактики дизентерии"},
+{a:"ВРНД10",n:"Вакцинация препаратом \"Приорикс\" для профилактики кори, паротита и краснухи"},
+{a:"ВРНД12",n:"Вакцинация препаратом \"Церварикс\" против вируса папилломы человека"},
+{a:"ВРНД13",n:"Вакцинация препаратом \"Гардасил\" против вируса папилломы человека"},
+{a:"ВРНД14",n:"Вакцинация для профилактики лептоспироза"},
+{a:"ВРНД15",n:"Вакцинация препаратом \"ЭнцеВир\" для профилактики клещевого энцефалита (от 18 лет)"},
+{a:"ВРНД16",n:"Вакцинация препаратом \"Превенар 13\" для профилактики пневмококковых инфекций"},
+{a:"ВРНД17",n:"Вакцинация культуральной живой вакциной для профилактики краснухи."},
+{a:"ВРНД18",n:"Вакцинация препаратом \"Инфанрикс\" для профилактики дифтерии, коклюша и столбняка"},
+{a:"ВРНД20",n:"Вакцинация препаратом \"Инфлювак\" для профилактики гриппа (с 6 месяцев)"},
+{a:"ВРНД25",n:"Вакцинация препаратом \"Варилрикс\" для профилактики ветряной оспы"},
+{a:"ВРНД26",n:"Вакцинация препаратом \"Вианвак\"  для профилактики брюшного тифа"},
+{a:"ВРНД28",n:"Вакцинация коревой культуральной живой вакциной для профилактики кори"},
+{a:"ВРНД29",n:"Вакцинация паротитно-коревой культуральной живой вакциной для профилактики кори и паротита"},
+{a:"ВРНД30",n:"Вакцинация сибиреязвенной живой вакциной для профилактики сибирской язвы"},
+{a:"ВРНД33",n:"Вакцинация препаратом \"МоноГриппол плюс\" для профилактики гриппа"},
+{a:"ВРНД35",n:"Вакцинация туляремийной живой вакциной для профилактики туляремии"},
+{a:"ВРНД36",n:"Вакцинация против гепатита В вакциной гепатита В рекомбинантной дрожжевой (дети-до 18 лет)"},
+{a:"ВРНД37",n:"Вакцинация АДС-М анатоксином для профилактики дифтерии и столбняка"},
+{a:"ВРНД41",n:"Вакцинация против гепатита В вакциной гепатита В рекомбинантной дрожжевой (от 18 лет)"},
+{a:"ВРНД45",n:"Вакцинация против желтой лихорадки (живая вакцина)"},
+{a:"ВРНД48",n:"Вакцинация препаратом  \"Витагерпавак\" для профилактики герпетических инфекций"},
+{a:"ВРНД53",n:"Вакцинация препаратом «РотаТек» для профилактики ротавирусной инфекции (детская)"},
+{a:"ВРНД54",n:"Вакцинация препаратом \"Инфанрикс-Гекса\" для профилактики дифтерии, столбняка, коклюша, гепатита B, полиомиелита и инфекций, вызываемых Haemophilus influenzae тип b"},
+{a:"ВРНД57",n:"Вакцинация препаратом \"Менактра\" для профилактики менингококковых инфекций"},
+{a:"ВРНД59",n:"Вакцинация препаратом \"Альгавак М\" для профилактики гепатита А (от 18 лет)"},
+{a:"ВРНД60",n:"Вакцинация препаратом \"Альгавак М\" для профилактики гепатита А (дети-от 3х до 17 лет)"},
+{a:"ВРНД61",n:"Вакцинация препаратом \"Регевак В\" для профилактики гепатита B (дети-до 18 лет включительно)"},
+{a:"ВРНД62",n:"Вакцинация препаратом \"Регевак В\" для профилактики гепатита B (от 18 лет)"},
+{a:"ВРНД63",n:"Вакцинация препаратом Адасель против дифтерии, столбняка и коклюша"},
+{a:"ВРНД64",n:"Вакцинация для профилактики паротита паротитной культуральной живой вакциной"},
+{a:"ВРНД65",n:"Вакцинация препаратом «Ультрикс» для профилактики гриппа"},
+{a:"ВРНД67",n:"Вакцинация препаратом  «М-М-Р II» для профилактики кори, краснухи и паротита"},
+{a:"СЕРТ",n:"Выдача сертификата профилактических прививок."},
+{a:"СРНД01",n:"Выдача международного свидетельства о вакцинации или профилактике"},
+{a:"СРНД02",n:"Замена сертификата профилактических прививок"},
+{a:"N535",n:"Вакцинация препаратом \"Пневмовакс 23\" для профилактики пневмококковых инфекций"},
+{a:"N540",n:"Внутрикожная проба с туберкулезным аллергеном (Диаскинтест)"},
+{a:"N541",n:"Вакцинация препаратом «Клещ-Э-Вак» для профилактики клещевого энцефалита (дети от 1 года до 16 лет)"},
+{a:"N545",n:"Вакцинация препаратом \"Полимилекс\" для профилактики полиомиелита"},
+{a:"N743",n:"Вакцинация АДС - анатоксином для профилактики дифтерии и столбняка"},
+{a:"N764",n:"Вакцинация препаратом \"БиВак полио\" для профилактики полиомиелита"},
+{a:"N908",n:"Вакцинация против гриппа"},
+{a:"N1274",n:"Вакцинация препаратом \"Ультрикс Квадри\" для профилактики гриппа"},
+{a:"N1340",n:"Вакцинация препаратом \"Спутник V\"/ \"Гам-КОВИД-Вак\" против COVID-19"},
+{a:"N1371",n:"Постановка пробы Манту"},
+{a:"N1372",n:"Оценка результатов пробы Манту"},
+{a:"N1429",n:"Вакцинация препаратом «Спутник Лайт» против COVID-19"},
+{a:"N1442",n:"Вакцинация препаратом «КовиВак» против COVID-19"},
+{a:"N1441",n:"Вакцинация препаратом Флю-М Тетра для профилактики гриппа"},
+{a:"N1451",n:"Вакцинация препаратом \" Варивакс\" для профилактики ветряной оспы, живая аттенуированная вакцина (MERK SHARP&DOHME, Нидерланды)"},
+{a:"N1493",n:"Вакцинация клещевой энцефалитной инактивированной вакциной для профилактики клещевого энцефалита"},
+{a:"N1499",n:"Вакцинация препаратом «Клещ-Э-Вак» для профилактики клещевого энцефалита (от 16 лет)"},
+{a:"N1637",n:"Вакцинация препаратом «Рота-V-Эйд» для профилактики ротавирусной инфекции (детская)"},
+{a:"N1639",n:"Вакцинация препаратом «Конвасэл» против COVID-19"},
+{a:"N1655",n:"Вакцинация препаратом «Гриппол Плюс» для профилактики гриппа"},
+{a:"N1656",n:"Вакцинация препаратом «Гриппол Квадривалент» для профилактики гриппа"},
+{a:"N1657",n:"Вакцинация препаратом «Флю-М» для профилактики гриппа"},
+{a:"N1762",n:"Вакцинация препаратом \"ПолиовакСин\" для профилактики полиомиелита"},
+{a:"N1763",n:"Вакцинация препаратом «ЭнцеВир® Нео детский» для профилактики клещевого энцефалита (дети от 3 до 17 лет включительно)"},
+{a:"N1832",n:"Вакцинация препаратом «ВАКТРИВИР» для профилактики кори, краснухи и паротита"},
+{a:"N1930",n:"Вакцинация препаратом «ТРИВЭЙД» для профилактики кори, краснухи и паротита"},
+{a:"N1378",n:"Введение противоклещевого иммуноглобулина 5,0 мл (вес человека от 41 до 50 кг)"},
+{a:"N1380",n:"Введение противоклещевого иммуноглобулина 6,0 мл (вес человека от 51 до 60 кг)"},
+{a:"N1382",n:"Введение противоклещевого иммуноглобулина 7,0 мл (вес человека от 61 до 70 кг)"},
+{a:"N1381",n:"Введение противоклещевого иммуноглобулина 8,0 мл (вес человека от 71 до 80 кг)"},
+{a:"N1384",n:"Введение противоклещевого иммуноглобулина 9,0 мл (вес человека от 81 до 90 кг)"},
+{a:"N1383",n:"Введение противоклещевого иммуноглобулина 10,0 мл (вес человека от 91 до 100 кг)"},
+{a:"N1379",n:"Введение противоклещевого иммуноглобулина 11,0 мл (вес человека от 101 до 110 кг)"},
+{a:"N1563",n:"Введение антирезусного иммуноглобулина, 1 доза"},
+{a:"N1576",n:"Введение противоклещевого иммуноглобулина 1,0 мл (вес человека до 10 кг)"},
+{a:"N1578",n:"Введение противоклещевого иммуноглобулина 2,0 мл (вес человека от 11 до 20 кг)"},
+{a:"N1574",n:"Введение противоклещевого иммуноглобулина 3,0 мл (вес человека от 21 до 30 кг)"},
+{a:"N1577",n:"Введение противоклещевого иммуноглобулина 4,0 мл (вес человека от 31 до 40 кг)"}];
+
+/* ============================================================
+   ВАКЦИНЫ — остатки по каждому МО
+   поля на продукт: base(базовый остаток), income(приход),
+   vacc(вакцинация), util(утилизация), plan(плановая дата).
+   остаток = base + income - vacc - util
+   ============================================================ */
+function vaccStockRow(r){ return Math.max(0, (r.base||0)+(r.income||0)-(r.vacc||0)-(r.util||0)); }
+// per-office vaccine data: { uid: { art: {base,income,vacc,util,plan} } }
+const VACC_DATA={};
+// per-office change log: { uid: [ {art,field,old,new,ts} ] }
+const VACC_LOG={};
+const VACC_META={}; // { uid: {updated: 'дд.мм.гггг'} }
+function seedVaccData(){
+  OFFICES.forEach(o=>{
+    seed=o.uid*53+11;
+    const rec={};
+    // у ~15% МО дефицит сильный (красный), у ~30% умеренный (оранжевый), у остальных — норма
+    const tier = ri(0,99);
+    const zeroRate = tier<15 ? 48 : tier<45 ? 22 : 7;   // % отсутствующих позиций
+    VACCINES.forEach((v,idx)=>{
+      const zero = ri(0,99)<zeroRate;
+      const base = zero?0:ri(2,40);
+      const income= zero?0:ri(0,20);
+      const util = zero?0:ri(0,2);
+      // расход не больше поступления, чтобы остаток был ≥ 0
+      const vacc = zero?0:ri(0,Math.max(0, base+income-util));
+      rec[v.a]={base,income,vacc,util,plan: (ri(0,99)<25? '' : dateShift(ri(3,40)))};
+    });
+    VACC_DATA[o.uid]=rec;
+    VACC_META[o.uid]={updated: dateShift(-ri(0,9))};
+    VACC_LOG[o.uid]=seedVaccLog(o.uid);
+  });
+}
+// дата = сегодня + n дней (демо «сегодня» = 18.07.2025)
+function dateShift(days){
+  const base=new Date(2025,6,18); base.setDate(base.getDate()+days);
+  const dd=String(base.getDate()).padStart(2,'0'), mm=String(base.getMonth()+1).padStart(2,'0');
+  return dd+'.'+mm+'.'+base.getFullYear();
+}
+const VLOG_FIELDS={base:'базовый остаток',income:'приход',vacc:'вакцинация',util:'утилизация',plan:'плановая дата'};
+function seedVaccLog(uid){
+  seed=uid*97+5;
+  const log=[]; const n=ri(6,16);
+  for(let i=0;i<n;i++){
+    const v=VACCINES[ri(0,VACCINES.length-1)];
+    const fkeys=Object.keys(VLOG_FIELDS); const f=fkeys[ri(0,fkeys.length-1)];
+    const daysAgo=ri(0,29);
+    log.push({art:v.a, name:v.n, field:f, old:ri(0,20), new:ri(0,40), ts:dateShift(-daysAgo), daysAgo});
+  }
+  log.sort((a,b)=>a.daysAgo-b.daysAgo);
+  return log;
+}
+seedVaccData();
+// % вакцин в наличии для МО: доля позиций с остатком >= 1
+function vaccAvailPct(uid){
+  const rec=VACC_DATA[uid]||{}; let total=0,inStock=0;
+  VACCINES.forEach(v=>{ total++; if(vaccStockRow(rec[v.a]||{})>=1) inStock++; });
+  return total? Math.round(inStock/total*100):0;
+}
+
 function aggById(id){return AGGS.find(a=>a.id===id);}
 
 /* ============================================================
@@ -815,6 +1021,7 @@ const TABLE_COLS=[
   {k:'survey',t:'Опрос (/10)',num:true,grp:'q'},{k:'gGoogle',t:'Google',num:true,grp:'q'},{k:'gYandex',t:'Яндекс',num:true,grp:'q'},{k:'g2gis',t:'2ГИС',num:true,grp:'q'},
   {k:'oro',t:'ОРО',num:true,grp:'q'},{k:'help',t:'Helpdesk',num:true,grp:'q'},{k:'video',t:'Видеоаудит',num:true,grp:'q'},{k:'ovk',t:'ОВКМС',num:true,grp:'q'},
   {k:'mystery',t:'Тайный пациент',num:true,grp:'q'},{k:'selfctrl',t:'Самоконтроль',num:true,grp:'q'},
+  {k:'vaccstock',t:'Остатки вакцин',num:true,grp:'q'},
 ];
 let sortKey='revenue',sortDir=-1;
 function sortBy(k){if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=(k==='name'||k==='agg')?1:-1;}renderTable();}
@@ -837,6 +1044,7 @@ function renderTable(){
     if(sortKey==='name'){A=a.name;B=b.name;}
     else if(sortKey==='agg'){A=aggById(a.agg).name;B=aggById(b.agg).name;}
     else if(sortKey==='score'){A=a._score;B=b._score;}
+    else if(sortKey==='vaccstock'){A=vaccAvailPct(a.uid);B=vaccAvailPct(b.uid);}
     else{A=officeMetric(a,sortKey,'this');B=officeMetric(b,sortKey,'this');}
     if(typeof A==='string')return A.localeCompare(B)*sortDir;
     return (A-B)*sortDir;});
@@ -861,7 +1069,9 @@ function renderTable(){
     +'<td class="num">'+cell(o,'g2gis')+'</td>'
     +'<td class="num">'+cell(o,'oro')+'</td>'
     +'<td class="num">'+cell(o,'help')+'</td>'
-    +pctCol(o,'video')+pctCol(o,'ovk')+pctCol(o,'mystery')+pctCol(o,'selfctrl')+'</tr>'
+    +pctCol(o,'video')+pctCol(o,'ovk')+pctCol(o,'mystery')+pctCol(o,'selfctrl')
+    +(function(){const p=vaccAvailPct(o.uid);return '<td class="num score-'+pctStatus(p)+'">'+p+'%</td>';})()
+    +'</tr>'
   ).join('')||'<tr><td colspan="'+TABLE_COLS.length+'" class="empty">Ничего не найдено</td></tr>';
   document.getElementById('rowCount').textContent=rows.length+' МО в выборке';
   updateSortIndicators();
@@ -940,10 +1150,155 @@ function renderOffice(){
     else{valHtml=Math.round(now)+'%';scoreCls='score-'+pctStatus(now);}
     return '<div class="mm"><span class="k">'+m.label+' <span class="u">('+m.unit+')</span></span>'
       +'<span style="display:flex;align-items:center"><span class="v '+scoreCls+'">'+valHtml+'</span><span class="d '+dcls+'">'+arrow+Math.abs(dl)+'%</span></span></div>';
-  }).join('');
+  }).join('')
+    + (function(){
+        const pct=vaccAvailPct(o.uid); const st=pctStatus(pct);
+        return '<div class="mm" style="cursor:pointer" onclick="openVaccines()"><span class="k">Остатки вакцин <span class="u">(% в наличии)</span></span>'
+          +'<span class="v score-'+st+'">'+pct+'%</span></div>';
+      })();
 }
 function toggleReply(id){document.getElementById('rb-'+id).classList.toggle('open');}
 function saveReply(id){const v=document.getElementById('ta-'+id).value.trim();if(!v)return;savedReplies[id]=v;renderOffice();}
+
+/* ============================================================
+   ВАКЦИНЫ — страница управления остатками
+   ============================================================ */
+let vaccDraft=null, vaccUid=null;
+function openVaccines(){
+  vaccUid=currentOffice.uid;
+  vaccDraft=JSON.parse(JSON.stringify(VACC_DATA[vaccUid]||{}));
+  document.getElementById('vaccCrumb').textContent=currentOffice.name+' · '+currentOffice.id;
+  document.getElementById('vaccUpdated').textContent='обновлено '+(VACC_META[vaccUid]?VACC_META[vaccUid].updated:'—');
+  document.getElementById('vaccLogPanel').style.display='none';
+  document.getElementById('vaccLogBtn').innerHTML='История изменений (за 30 дней) ▾';
+  document.getElementById('vaccSaveMsg').textContent='';
+  renderVaccTable();
+  showView('vaccines');
+}
+function backToOffice(){ renderOffice(); showView('office'); }
+function stockClass(s){ return s<=0?'zero': s<5?'low':'ok'; }
+let vaccSortKey='art', vaccSortDir=1;
+function vaccSortBy(k){ if(vaccSortKey===k)vaccSortDir*=-1; else{vaccSortKey=k;vaccSortDir=1;} renderVaccTable(); }
+function renderVaccTable(){
+  const q=(document.getElementById('vaccSearch').value||'').toLowerCase().trim();
+  const onlyZero=document.getElementById('vaccOnlyZero').checked;
+  let list=VACCINES.filter(v=>{
+    if(q && !(v.a.toLowerCase().includes(q)||v.n.toLowerCase().includes(q))) return false;
+    if(onlyZero && vaccStockRow(vaccDraft[v.a]||{})>=1) return false;
+    return true;
+  });
+  // сортировка
+  const val=(v,k)=>{
+    const r=vaccDraft[v.a]||{};
+    if(k==='art')return v.a; if(k==='name')return v.n;
+    if(k==='stock')return vaccStockRow(r);
+    if(k==='plan')return r.plan? isoDate(r.plan):'';
+    return r[k]!==undefined?r[k]:0;
+  };
+  list.sort((a,b)=>{
+    let A=val(a,vaccSortKey),B=val(b,vaccSortKey);
+    if(typeof A==='string')return A.localeCompare(B,'ru')*vaccSortDir;
+    return (A-B)*vaccSortDir;
+  });
+  const arrow=k=>vaccSortKey===k?(vaccSortDir>0?' ▲':' ▼'):' ↕';
+  const th=(k,label,cls)=>'<th class="'+(cls||'')+'" style="cursor:pointer" onclick="vaccSortBy(\''+k+'\')">'+label+arrow(k)+'</th>';
+  let head='<thead><tr>'
+    +th('art','Продукт (артикул · название)','prod')
+    +th('base','Базовый остаток (доз)')+th('income','Приход (доз)')+th('vacc','Вакцинация (доз)')+th('util','Утилизация (доз)')
+    +th('stock','Остаток (доз)')+th('plan','Плановая дата поступления')+'</tr></thead>';
+  let body='<tbody>';
+  list.forEach(v=>{
+    const r=vaccDraft[v.a]||(vaccDraft[v.a]={base:0,income:0,vacc:0,util:0,plan:''});
+    const stock=vaccStockRow(r);
+    const inp=(f)=>'<input class="vacc-inp" type="number" min="0" value="'+(r[f]!==undefined&&r[f]!==''?r[f]:0)+'" onchange="setVacc(\''+v.a+'\',\''+f+'\',this.value)">';
+    body+='<tr>'
+      +'<td class="prod"><span class="vacc-art">'+v.a+'</span> <span class="vacc-name">'+v.n+'</span></td>'
+      +'<td>'+inp('base')+'</td><td>'+inp('income')+'</td><td>'+inp('vacc')+'</td><td>'+inp('util')+'</td>'
+      +'<td><span class="vacc-stock '+stockClass(stock)+'">'+stock+'</span></td>'
+      +'<td><input class="vacc-date" type="date" value="'+isoDate(r.plan)+'" onchange="setVaccDate(\''+v.a+'\',this.value)"></td>'
+      +'</tr>';
+  });
+  body+='</tbody>';
+  document.getElementById('vaccTable').innerHTML=head+body;
+  document.getElementById('vaccCount').textContent=list.length+' из '+VACCINES.length+' позиций';
+  updateVaccAvail();
+}
+function updateVaccAvail(){
+  let total=0,inStock=0;
+  VACCINES.forEach(v=>{ total++; if(vaccStockRow(vaccDraft[v.a]||{})>=1) inStock++; });
+  const pct=total?Math.round(inStock/total*100):0; const st=pctStatus(pct);
+  document.getElementById('vaccAvailBadge').innerHTML='Вакцин в наличии: <span class="score-'+st+'">'+pct+'%</span> <span style="color:var(--muted);font-weight:600;font-size:11px">('+inStock+'/'+total+')</span>';
+}
+function setVacc(art,field,val){
+  const r=vaccDraft[art]=vaccDraft[art]||{base:0,income:0,vacc:0,util:0,plan:''};
+  let v=Math.max(0,parseInt(val)||0);
+  // остаток не может стать отрицательным: расход (вакцинация+утилизация) ≤ поступление (базовый+приход)
+  const incoming=(r.base||0)+(r.income||0);
+  if(field==='vacc'){ v=Math.min(v, Math.max(0, incoming-(r.util||0))); }
+  else if(field==='util'){ v=Math.min(v, Math.max(0, incoming-(r.vacc||0))); }
+  else if(field==='base'||field==='income'){
+    // при уменьшении поступления — поджать расход, чтобы не уйти в минус
+    r[field]=v;
+    const inc2=(r.base||0)+(r.income||0);
+    if((r.vacc||0)+(r.util||0)>inc2){
+      // сначала срезаем утилизацию, потом вакцинацию
+      let over=(r.vacc||0)+(r.util||0)-inc2;
+      const cutU=Math.min(over,r.util||0); r.util=(r.util||0)-cutU; over-=cutU;
+      if(over>0) r.vacc=Math.max(0,(r.vacc||0)-over);
+    }
+    renderVaccTable(); return;
+  }
+  r[field]=v;
+  renderVaccTable();
+}
+// date helpers: internal display дд.мм.гггг ↔ input[type=date] гггг-мм-дд
+function isoDate(d){ if(!d)return ''; const p=d.split('.'); return p.length===3? p[2]+'-'+p[1]+'-'+p[0]:''; }
+function ruDate(iso){ if(!iso)return ''; const p=iso.split('-'); return p.length===3? p[2]+'.'+p[1]+'.'+p[0]:''; }
+function setVaccDate(art,iso){
+  vaccDraft[art]=vaccDraft[art]||{base:0,income:0,vacc:0,util:0,plan:''};
+  vaccDraft[art].plan=ruDate(iso);
+}
+function saveVacc(){
+  // compute diffs → append to log
+  const prev=VACC_DATA[vaccUid]||{};
+  const today=dateShift(0);
+  const logAdds=[];
+  VACCINES.forEach(v=>{
+    const a=v.a; const nw=vaccDraft[a]||{}; const od=prev[a]||{};
+    ['base','income','vacc','util','plan'].forEach(f=>{
+      const ov=od[f]!==undefined?od[f]:(f==='plan'?'':0);
+      const nvv=nw[f]!==undefined?nw[f]:(f==='plan'?'':0);
+      if(String(ov)!==String(nvv)){
+        logAdds.push({art:a,name:v.n,field:f,old:ov===''?'—':ov,new:nvv===''?'—':nvv,ts:today,daysAgo:0});
+      }
+    });
+  });
+  VACC_DATA[vaccUid]=JSON.parse(JSON.stringify(vaccDraft));
+  VACC_META[vaccUid]={updated:today};
+  if(logAdds.length){ VACC_LOG[vaccUid]=logAdds.concat(VACC_LOG[vaccUid]||[]); }
+  document.getElementById('vaccUpdated').textContent='обновлено '+today;
+  document.getElementById('vaccSaveMsg').textContent='✓ Сохранено ('+logAdds.length+' изм.). Отчёт розницы обновлён.';
+  setTimeout(()=>{document.getElementById('vaccSaveMsg').textContent='';},4000);
+  renderVaccTable();
+}
+let vaccLogOpen=false;
+function toggleVaccLog(){
+  vaccLogOpen=!vaccLogOpen;
+  document.getElementById('vaccLogPanel').style.display=vaccLogOpen?'block':'none';
+  document.getElementById('vaccLogBtn').innerHTML='История изменений (за 30 дней) '+(vaccLogOpen?'▴':'▾');
+  if(vaccLogOpen)renderVaccLog();
+}
+function renderVaccLog(){
+  const log=(VACC_LOG[vaccUid]||[]).filter(l=>l.daysAgo<=30);
+  if(!log.length){ document.getElementById('vaccLogList').innerHTML='<div class="empty">За последние 30 дней изменений не было</div>'; return; }
+  document.getElementById('vaccLogList').innerHTML=log.map(l=>
+    '<div class="vacc-log-row"><span class="vacc-log-date">'+l.ts+'</span>'
+    +'<span class="vacc-log-art">'+l.art+'</span>'
+    +'<span class="vacc-log-field">'+(VLOG_FIELDS[l.field]||l.field)+'</span>'
+    +'<span class="vacc-log-chg">'+l.old+' → '+l.new+'</span>'
+    +'<span class="vacc-log-name">'+l.name+'</span></div>'
+  ).join('');
+}
 
 function fillMonthSelects(){
   [document.getElementById('periodMonth'),document.getElementById('periodMonthO')].forEach(sel=>{
@@ -1077,6 +1432,13 @@ function enterRole(role){
 function setRole(r){enterRole(r);}
 function goOvk(page){goPage(page);}
 
+// клик по блоку «Управление остатками» на схеме → страница остатков конкретного МО
+function openStockFromArch(){
+  enterRole('office');
+  currentOffice=OFFICES[0];
+  openVaccines();
+}
+
 // open an office, remembering where we came from
 let officeReturn='dashboard';
 function officeBack(){
@@ -1109,6 +1471,7 @@ const ARCH_NODES=[
   {id:'docu',    label:'Docuforce',            users:['Сотрудники МО'], x:COL[0], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
   // колонка 1
   {id:'rms',     label:'РМС',                  users:['Операторы КЦ · Управление','CX · Управление розницей'], x:COL[1], y:ROW[2], w:CW,h:RH, role:null, kind:'exist'},
+  {id:'stock',   label:'Управление остатками', users:['Сотрудники МО'], x:COL[1], y:ROW[0], w:CW,h:RH, role:null, kind:'proto', click:'openStockFromArch'},
   // колонка 2
   {id:'armop',   label:'АРМ операторов',       users:['Операторы КЦ · ГОП МО'], x:COL[2], y:ROW[1], w:CW,h:RH, role:null, kind:'exist'},
   {id:'armreq',  label:'АРМ обращений',        users:['ОРО · ОВКМС'], x:COL[2], y:ROW[3], w:CW,h:RH, role:null, kind:'exist'},
@@ -1145,6 +1508,8 @@ const ARCH_LINKS=[
   ['rms','retail',true],['rms','video',true],['rms','office',true],
   // Сервис сравнения цен — пунктир
   ['price','retail',true],['price','rms',true],
+  // Управление остатками ↔ Страница МО (пунктир)
+  ['stock','office',true],
 ];
 function nodeById(id){return ARCH_NODES.find(n=>n.id===id);}
 // стили по категории узла
@@ -1215,18 +1580,90 @@ function renderArch(){
     return toD(ok);
   }
   let svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-height:calc(100vh - 178px);display:block;margin:0 auto">';
-  // links first (under nodes)
-  ARCH_LINKS.forEach(([f,t,dash])=>{
-    const a=nodeById(f),b=nodeById(t);
-    if(!a||!b)return;
-    svg+='<path d="'+routePath(a,b)+'" fill="none" stroke="#c2d0d6" stroke-width="1.6" stroke-linejoin="round"'+(dash?' stroke-dasharray="6 4"':'')+'/>';
+  // 1) построить все пути как ломаные (списки точек)
+  const routed=[];
+  ARCH_LINKS.forEach(([f,t,dash],li)=>{
+    const a=nodeById(f),b=nodeById(t); if(!a||!b)return;
+    const ca=colOf(a),cb=colOf(b),ay=a.y+a.h/2,by=b.y+b.h/2;
+    const cands=[];
+    if(ca===cb){
+      [a.x-18,a.x+a.w+18].forEach(bx=>{const ax0=bx<a.x?a.x:a.x+a.w,bx0=bx<b.x?b.x:b.x+b.w;cands.push([[ax0,ay],[bx,ay],[bx,by],[bx0,by]]);});
+    }else{
+      const dir=cb>ca?1:-1,ax=dir>0?a.x+a.w:a.x,bx=dir>0?b.x:b.x+b.w;
+      CORR.forEach(cx=>{cands.push([[ax,ay],[cx,ay],[cx,by],[bx,by]]);});
+      const top=ROW[0]-14,bot=ROW[ROW.length-1]+RH+14;
+      [top,bot].forEach(yy=>{cands.push([[ax,ay],[ax+dir*18,ay],[ax+dir*18,yy],[bx-dir*18,yy],[bx-dir*18,by],[bx,by]]);});
+    }
+    const ok=cands.find(c=>clean(c,a,b))||cands[0];
+    routed.push({pts:ok.map(p=>p.slice()),dash,li});
+  });
+  // 2) РАЗВЕСТИ ПАРАЛЛЕЛЬНЫЕ: вертикали в одном коридоре — по X-полосам; горизонтали на одном Y — по Y-полосам
+  const LANE=6;
+  // вертикали: сгруппировать по округлённому X
+  const vGroups={};
+  routed.forEach((r,ri)=>{
+    for(let i=0;i<r.pts.length-1;i++){
+      if(r.pts[i][0]===r.pts[i+1][0]){ const key=Math.round(r.pts[i][0]); (vGroups[key]=vGroups[key]||[]).push({ri,i}); }
+    }
+  });
+  Object.values(vGroups).forEach(list=>{
+    if(list.length<2)return;
+    // распределить полосы симметрично вокруг исходного X
+    list.forEach((seg,k)=>{
+      const off=(k-(list.length-1)/2)*LANE;
+      routed[seg.ri].pts[seg.i][0]+=off; routed[seg.ri].pts[seg.i+1][0]+=off;
+    });
+  });
+  // горизонтали: сгруппировать по округлённому Y
+  const hGroups={};
+  routed.forEach((r,ri)=>{
+    for(let i=0;i<r.pts.length-1;i++){
+      if(r.pts[i][1]===r.pts[i+1][1] && r.pts[i][0]!==r.pts[i+1][0]){ const key=Math.round(r.pts[i][1]); (hGroups[key]=hGroups[key]||[]).push({ri,i}); }
+    }
+  });
+  Object.values(hGroups).forEach(list=>{
+    if(list.length<2)return;
+    list.forEach((seg,k)=>{
+      const off=(k-(list.length-1)/2)*LANE;
+      routed[seg.ri].pts[seg.i][1]+=off; routed[seg.ri].pts[seg.i+1][1]+=off;
+    });
+  });
+  // 3) собрать вертикальные сегменты (после разведения) для мостиков
+  const verts=[];
+  routed.forEach((r,ri)=>{
+    for(let i=0;i<r.pts.length-1;i++){
+      const [x1,y1]=r.pts[i],[x2,y2]=r.pts[i+1];
+      if(x1===x2) verts.push({x:x1,y0:Math.min(y1,y2),y1:Math.max(y1,y2),ri});
+    }
+  });
+  // 4) отрисовать; мостик рисуем ТОЛЬКО на горизонтали и ТОЛЬКО один раз на пересечение
+  const R=4;
+  routed.forEach((r,ri)=>{
+    let d='M'+r.pts[0][0]+','+r.pts[0][1];
+    for(let i=0;i<r.pts.length-1;i++){
+      const [x1,y1]=r.pts[i],[x2,y2]=r.pts[i+1];
+      if(y1===y2 && x1!==x2){
+        const dir=x2>x1?1:-1;
+        // пересечения этой горизонтали с чужими вертикалями (строго внутри отрезка)
+        const cross=verts.filter(v=>v.ri!==ri && v.x>Math.min(x1,x2)+R && v.x<Math.max(x1,x2)-R && y1>v.y0+1 && y1<v.y1-1)
+                         .map(v=>v.x).sort((p,q)=>dir>0?p-q:q-p);
+        cross.forEach(vx=>{
+          d+=' L'+(vx-dir*R)+','+y1+' A'+R+','+R+' 0 0 '+(dir>0?1:0)+' '+(vx+dir*R)+','+y1;
+        });
+        d+=' L'+x2+','+y2;
+      } else {
+        d+=' L'+x2+','+y2;
+      }
+    }
+    svg+='<path d="'+d+'" fill="none" stroke="#c2d0d6" stroke-width="1.6" stroke-linejoin="round"'+(r.dash?' stroke-dasharray="6 4"':'')+'/>';
   });
   // nodes
   ARCH_NODES.forEach(n=>{
-    const clickable=!!n.role;
+    const handler = n.role ? "enterRole('"+n.role+"')" : (n.click ? n.click+"()" : null);
+    const clickable=!!handler;
     const s=NODE_STYLE[n.kind]||NODE_STYLE.plan;
     const cx=n.x+n.w/2;
-    svg+='<g class="arch-node'+(clickable?' clickable':'')+'"'+(clickable?' onclick="enterRole(\''+n.role+'\')"':'')+'>';
+    svg+='<g class="arch-node'+(clickable?' clickable':'')+'"'+(clickable?' onclick="'+handler+'"':'')+'>';
     svg+='<rect class="arch-rect" x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="12" fill="'+s.fill+'" stroke="'+s.stroke+'" stroke-width="1.6"'+s.dash+'/>';
     svg+='<text x="'+cx+'" y="'+(n.y+28)+'" text-anchor="middle" font-size="13.5" font-weight="800" fill="'+s.txt+'">'+n.label+'</text>';
     const uy=n.users.length>1?n.y+44:n.y+48;
