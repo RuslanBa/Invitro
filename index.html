@@ -252,6 +252,79 @@
   .vacc-log-chg{color:var(--muted);font-variant-numeric:tabular-nums}
   .vacc-log-name{flex:1;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
+  /* forum 3630363.ru */
+  .forum-top{display:flex;align-items:center;gap:16px;padding:14px 4px 18px}
+  .forum-brand{display:flex;flex-direction:column;line-height:1.1}
+  .forum-logo{font-size:24px;font-weight:900;color:var(--blue);letter-spacing:-.5px}
+  .forum-logo span{color:var(--ink);font-weight:800}
+  .forum-sub{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .forum-back{font-size:13px;color:var(--blue);cursor:pointer;font-weight:600}
+  .forum-back:hover{text-decoration:underline}
+  .forum-hero{background:linear-gradient(135deg,#0091b3 0%,#00728f 55%,#005e78 100%);border-radius:20px;padding:0;color:#fff;margin-bottom:24px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.15fr .85fr;min-height:260px}
+  @media(max-width:820px){.forum-hero{grid-template-columns:1fr}.forum-hero .fh-art{display:none}}
+  .forum-hero .fh-text{padding:38px 40px;position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center}
+  .forum-hero .fh-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);padding:5px 13px;border-radius:20px;font-size:11.5px;font-weight:700;margin-bottom:14px;width:fit-content;backdrop-filter:blur(4px)}
+  .forum-hero h1{font-size:26px;font-weight:800;max-width:520px;line-height:1.28;letter-spacing:-.4px}
+  .forum-hero p{margin-top:12px;font-size:13.5px;color:#dbf3f9;max-width:440px;line-height:1.5}
+  .forum-hero .ask-big{margin-top:22px;background:#fff;color:var(--blue-dark);font-size:16px;font-weight:800;padding:14px 32px;border-radius:12px;box-shadow:0 6px 22px rgba(0,0,0,.22);transition:.15s;width:fit-content;display:inline-flex;align-items:center;gap:9px}
+  .forum-hero .ask-big:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.28)}
+  .forum-hero .fh-art{position:relative;overflow:hidden}
+  .forum-hero .fh-art svg{position:absolute;right:0;bottom:0;height:100%;width:auto}
+  .forum-hero .fh-deco{position:absolute;border-radius:50%;background:rgba(255,255,255,.06)}
+  .forum-cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:9px;margin-bottom:26px}
+  .forum-cat{background:var(--white);border:1px solid var(--line);border-radius:11px;padding:11px 13px;cursor:pointer;transition:.12s;display:flex;align-items:center;gap:10px}
+  .forum-cat:hover{border-color:var(--blue);background:var(--blue-050)}
+  .forum-cat .fc-ico{font-size:19px;flex-shrink:0}
+  .forum-cat .fc-txt{min-width:0}
+  .forum-cat .fc-name{font-weight:700;font-size:12.5px;line-height:1.2;margin-bottom:2px}
+  .forum-cat .fc-cnt{font-size:11px;color:var(--muted)}
+  .forum-section-title{font-size:17px;font-weight:800;margin:8px 0 14px}
+  .forum-q-list{display:flex;flex-direction:column;gap:10px}
+  .forum-q{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:15px 18px;cursor:pointer;transition:.12s;box-shadow:var(--shadow)}
+  .forum-q:hover{border-color:var(--blue)}
+  .forum-q .fq-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:5px}
+  .forum-q .fq-cat{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;background:var(--blue-050);color:var(--blue-dark);padding:2px 9px;border-radius:20px}
+  .forum-q .fq-title{font-weight:700;font-size:14.5px}
+  .forum-q .fq-date{font-size:11.5px;color:var(--muted);margin-left:auto}
+  .forum-q .fq-preview{font-size:12.5px;color:#3f5058;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .forum-q .fq-meta{font-size:11.5px;color:var(--muted);margin-top:6px;display:flex;gap:12px}
+  .forum-q .fq-answered{color:var(--green);font-weight:700}
+  .forum-q .fq-pending{color:var(--amber);font-weight:700}
+  .fq-detail-q{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 24px;box-shadow:var(--shadow);margin-bottom:16px}
+  .fq-detail-q .fq-title{font-size:20px;font-weight:800;margin:8px 0 10px}
+  .fq-detail-q .fq-body{font-size:14px;color:#2f3e45;line-height:1.6}
+  .fq-detail-q .fq-city{font-size:12px;color:var(--muted);margin-top:10px}
+  .fq-answer{background:#f0f9fc;border:1px solid var(--blue-100);border-radius:14px;padding:20px 24px}
+  .fq-answer .fa-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+  .fq-answer .fa-doc{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+  .fq-answer .fa-name{font-weight:800;font-size:14px}
+  .fq-answer .fa-role{font-size:11.5px;color:var(--muted)}
+  .fq-answer .fa-body{font-size:14px;line-height:1.65;color:#2f3e45}
+  .fq-answer .fa-body a{color:var(--blue);font-weight:600;text-decoration:underline}
+  .fa-products{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+  .fa-product{display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+  .fa-product .fp-code{font-weight:800;color:var(--blue-dark);font-size:12px;min-width:56px}
+  .fa-product .fp-name{flex:1;font-size:13px}
+  .fa-product .fp-link{font-size:12px;color:var(--blue);font-weight:700;white-space:nowrap}
+  .fa-slots{margin-top:14px}
+  .fa-slots-title{font-size:12.5px;font-weight:800;margin-bottom:8px;color:var(--ink)}
+  .fa-slot{display:flex;align-items:center;gap:12px;background:var(--white);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:7px}
+  .fa-slot .fs-time{font-weight:800;font-size:13px;font-variant-numeric:tabular-nums;min-width:112px}
+  .fa-slot .fs-office{flex:1;font-size:12.5px}
+  .fa-slot .fs-office b{display:block;font-size:11px;color:var(--muted);font-weight:600}
+  .fa-slot .fs-book{font-size:12px;font-weight:700;padding:6px 14px;border-radius:8px;background:var(--blue);color:#fff}
+  .forum-form{max-width:620px;margin:0 auto;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:26px 28px;box-shadow:var(--shadow)}
+  .forum-form h2{font-size:20px;font-weight:800;margin-bottom:4px}
+  .forum-form .ff-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+  .forum-field{margin-bottom:16px}
+  .forum-field label{display:block;font-size:12.5px;font-weight:700;margin-bottom:6px}
+  .forum-field input,.forum-field select,.forum-field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-family:inherit;font-size:13.5px}
+  .forum-field textarea{min-height:120px;resize:vertical}
+  .forum-field input:focus,.forum-field select:focus,.forum-field textarea:focus{outline:none;border-color:var(--blue)}
+  .forum-check{display:inline-flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
+  .forum-check input{width:auto;margin:0}
+  .forum-auth-note{background:#fdf3dd;border:1px solid #f0c98a;border-radius:10px;padding:12px 14px;font-size:12.5px;color:#8a6d3b;margin-bottom:18px}
+
   /* arch button in topbar */
   .arch-btn{padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700;background:var(--white);border:1px solid var(--line);color:var(--ink)}
   .arch-btn:hover{border-color:var(--blue);color:var(--blue)}
@@ -293,11 +366,13 @@
 <body>
 
 <div class="topbar">
-  <div class="logo" id="topLogo" onclick="goArch()" style="cursor:pointer">ИНВИТРО<small id="topLogoSub">Экосистема сервисов CX</small></div>
+  <div class="logo" id="topLogo" onclick="goArch()" style="cursor:pointer">ИНВИТРО<small id="topLogoSub">Экосистема сервисов коммерции</small></div>
   <div class="sub" id="topSub">Архитектура решений</div>
   <div class="spacer"></div>
   <span class="demo-badge">DEMO · тестовые данные</span>
   <button id="archBtn" class="arch-btn" onclick="goArch()" style="display:none">☰ Архитектура</button>
+  <button id="forumArchBtn" class="arch-btn" onclick="goArch()" style="display:none">☰ Архитектура</button>
+  <button id="forumAuthBtn" class="btn btn-ghost" onclick="forumAuth()" style="display:none">Вход / регистрация</button>
   <div class="role-switch" id="roleNav" style="display:none"></div>
   <div class="avatar" id="avatar" style="display:none">РП</div>
 </div>
@@ -314,11 +389,14 @@
         <span><i class="al-box proto"></i> планируемые с прототипом</span>
         <span><i class="al-box exist"></i> существующие сервисы</span>
         <span><i class="al-box plan"></i> планируемые без прототипа</span>
-        <span><i class="al-line solid"></i> существующая интеграция</span>
-        <span><i class="al-line dashed"></i> планируемая интеграция</span>
       </div>
     </div>
     <div id="archContainer"></div>
+  </div>
+
+  <!-- ============ ФОРУМ 3630363.ru ============ -->
+  <div id="view-forum" class="view">
+    <div id="forumBody"></div>
   </div>
 
   <div id="view-dashboard" class="view">
@@ -1424,6 +1502,8 @@ function enterRole(role){
   document.getElementById('topLogoSub').textContent=m.logoSub;
   document.getElementById('roleNav').style.display='flex';
   document.getElementById('archBtn').style.display='block';
+  document.getElementById('forumArchBtn').style.display='none';
+  document.getElementById('forumAuthBtn').style.display='none';
   // default landing page per role
   curPage=ROLE_PAGES[role][0][0];
   goPage(curPage);
@@ -1433,6 +1513,268 @@ function setRole(r){enterRole(r);}
 function goOvk(page){goPage(page);}
 
 // клик по блоку «Управление остатками» на схеме → страница остатков конкретного МО
+
+/* ============================================================
+   ФОРУМ 3630363.ru — Интернет-клуб ИНВИТРО
+   ============================================================ */
+let forumAuthed=false;
+const FORUM_CATS=[
+  {id:'interpret', ico:'📊', name:'Интерпретация результатов', cnt:512},
+  {id:'prep', ico:'🧪', name:'Подготовка к исследованиям', cnt:389},
+  {id:'select', ico:'🔍', name:'Подбор исследований', cnt:276},
+  {id:'vacc', ico:'💉', name:'Вакцинация', cnt:214},
+  {id:'onco', ico:'🎗️', name:'Онкология', cnt:198},
+  {id:'immun', ico:'🛡️', name:'Иммунитет', cnt:187},
+  {id:'infect', ico:'🦠', name:'Инфекции', cnt:243},
+  {id:'hormones', ico:'⚗️', name:'Гормоны', cnt:305},
+  {id:'gastro', ico:'🩺', name:'ЖКТ и печень', cnt:164},
+  {id:'preg', ico:'🤰', name:'Беременность', cnt:221},
+  {id:'children', ico:'🧒', name:'Детское здоровье', cnt:139},
+  {id:'allergy', ico:'🌿', name:'Аллергология', cnt:112},
+  {id:'genetics', ico:'🧬', name:'Генетика', cnt:76},
+  {id:'other', ico:'💬', name:'Другие вопросы', cnt:158},
+];
+// категории для формы вопроса (как задано)
+const FORUM_ASK_CATS=[
+  {id:'vacc', name:'Вакцинация'},
+  {id:'prep', name:'Описание и подготовка к исследованиям'},
+  {id:'select', name:'Подбор исследований'},
+  {id:'interpret', name:'Интерпретация результатов'},
+  {id:'other', name:'Другие вопросы'},
+];
+const FORUM_CAT_NAME=Object.fromEntries(FORUM_CATS.map(c=>[c.id,c.name]));
+// примеры вопросов с ответами врачей
+const FORUM_QUESTIONS=[
+  {
+    id:'q1', cat:'interpret', title:'Как понять результат анализа на антитела к COVID-19?',
+    city:'Екатеринбург', date:'12.07.2025', author:'Марина',
+    body:'Здравствуйте! Сдала тест на IgG к SARS-CoV-2 после вакцинации, результат 320 BAU/мл. Это много или мало? Нужно ли ревакцинироваться? Спасибо.',
+    doctor:'Ольга Петровна К.', role:'врач клинической лабораторной диагностики',
+    answer:'Здравствуйте, Марина! Показатель 320 BAU/мл говорит о наличии поствакцинального гуморального иммунитета. Единого «защитного порога» пока не установлено, поэтому решение о ревакцинации принимается индивидуально с учётом сроков после вакцинации и эпидемической ситуации. Для контроля динамики рекомендую повторить исследование через 4–6 месяцев тем же методом.',
+    products:[
+      {code:'1654', name:'Антитела IgG к RBD домену S-белка SARS-CoV-2 (количественно)', url:'https://www.invitro.ru/analizes/for-doctors/'},
+    ],
+    slots:null
+  },
+  {
+    id:'q2', cat:'vacc', title:'Какие анализы сдать перед вакцинацией от клещевого энцефалита?',
+    city:'Новосибирск', date:'10.07.2025', author:'Дмитрий',
+    body:'Планирую поставить прививку от клещевого энцефалита. Нужно ли перед этим сдавать какие-то анализы? Есть ли смысл проверить, нет ли уже иммунитета?',
+    doctor:'Сергей Владимирович М.', role:'врач-терапевт, эксперт ИНВИТРО',
+    answer:'Добрый день, Дмитрий! Перед вакцинацией имеет смысл оценить, нет ли у вас уже антител к вирусу клещевого энцефалита — при их достаточном уровне прививка может не потребоваться. Также перед вакцинацией полезно исключить активный воспалительный процесс (общий анализ крови). Рекомендую записаться к врачу для осмотра и допуска — ниже доступные слоты в вашем городе.',
+    products:[
+      {code:'267', name:'Антитела IgG к вирусу клещевого энцефалита', url:'https://www.invitro.ru/analizes/for-doctors/'},
+      {code:'1515', name:'Клинический анализ крови с лейкоцитарной формулой', url:'https://www.invitro.ru/analizes/for-doctors/'},
+    ],
+    slots:[
+      {time:'15.07, 09:30', office:'МО «Центральный»', addr:'ул. Ленина, 12', service:'Осмотр перед вакцинацией'},
+      {time:'15.07, 14:00', office:'МО «Северный»', addr:'пр. Дзержинского, 45', service:'Вакцинация «Клещ-Э-Вак»'},
+      {time:'16.07, 11:15', office:'МО «Западный»', addr:'ул. Мира, 8', service:'Осмотр перед вакцинацией'},
+    ]
+  },
+  {
+    id:'q3', cat:'select', title:'Что сдать для базового чек-апа здоровья мужчине 40 лет?',
+    city:'Москва', date:'09.07.2025', author:'Андрей',
+    body:'Хочу проверить здоровье, ничего конкретно не беспокоит. Какие анализы посоветуете для базовой проверки?',
+    doctor:'Ирина Анатольевна С.', role:'врач-терапевт, эксперт ИНВИТРО',
+    answer:'Здравствуйте, Андрей! Для базовой оценки состояния здоровья мужчине вашего возраста подойдёт профиль, включающий общий и биохимический анализ крови, липидный профиль, глюкозу и оценку функции щитовидной железы. Оптимально — готовый комплекс, он выгоднее по цене, чем отдельные тесты. При наличии жалоб перечень стоит расширить на приёме у врача.',
+    products:[
+      {code:'ОБС74', name:'Обследование сердца и сосудов (расширенный липидный профиль)', url:'https://www.invitro.ru/analizes/for-doctors/'},
+      {code:'ОБС62', name:'Базовый чек-ап здоровья для мужчин', url:'https://www.invitro.ru/analizes/for-doctors/'},
+    ],
+    slots:null
+  },
+  {
+    id:'q4', cat:'prep', title:'Как правильно подготовиться к сдаче крови на гормоны?',
+    city:'Казань', date:'08.07.2025', author:'Елена',
+    body:'Назначили сдать кровь на ТТГ, Т4 свободный и пролактин. Как подготовиться? Можно ли завтракать?',
+    doctor:'Наталья Игоревна В.', role:'врач клинической лабораторной диагностики',
+    answer:'Здравствуйте, Елена! Кровь на гормоны сдаётся строго натощак, после 8–14 часов голодания (можно пить воду). За сутки желательно исключить физические и эмоциональные нагрузки. Пролактин рекомендуется сдавать в первой половине дня, через 3 часа после пробуждения. Приём препаратов, влияющих на гормоны, согласуйте с лечащим врачом.',
+    products:[
+      {code:'56', name:'Тиреотропный гормон (ТТГ)', url:'https://www.invitro.ru/analizes/for-doctors/'},
+      {code:'55', name:'Пролактин', url:'https://www.invitro.ru/analizes/for-doctors/'},
+    ],
+    slots:null
+  },
+  {
+    id:'q5', cat:'interpret', title:'Повышен ферритин при нормальном гемоглобине — что это значит?',
+    city:'Санкт-Петербург', date:'07.07.2025', author:'Ольга',
+    body:'В анализе ферритин 340 мкг/л, гемоглобин в норме. Врач в отпуске, переживаю. Что может означать такой результат?',
+    doctor:'Владимир Сергеевич Т.', role:'врач-гематолог, эксперт ИНВИТРО',
+    answer:'Здравствуйте, Ольга! Повышенный ферритин при нормальном гемоглобине может быть связан не только с запасами железа, но и с воспалением — ферритин является белком острой фазы. Для уточнения причины целесообразно оценить С-реактивный белок и показатели обмена железа. Рекомендую очную консультацию — прикладываю доступные слоты записи в вашем городе.',
+    products:[
+      {code:'43', name:'С-реактивный белок (СРБ)', url:'https://www.invitro.ru/analizes/for-doctors/'},
+      {code:'48', name:'Железо сыворотки', url:'https://www.invitro.ru/analizes/for-doctors/'},
+    ],
+    slots:[
+      {time:'14.07, 10:00', office:'МО «Приморский»', addr:'Невский пр., 88', service:'Приём врача-терапевта'},
+      {time:'14.07, 16:30', office:'МО «Московский»', addr:'Московский пр., 130', service:'Приём врача-терапевта'},
+    ]
+  },
+  {
+    id:'q6', cat:'other', title:'Можно ли сдать анализы анонимно?',
+    city:'Краснодар', date:'05.07.2025', author:'Гость',
+    body:'Подскажите, есть ли возможность сдать анализы анонимно, без указания паспортных данных?',
+    doctor:'Администратор клуба', role:'служба поддержки ИНВИТРО',
+    answer:'Здравствуйте! Да, ряд исследований можно сдать на анонимной основе — в этом случае результат выдаётся по номеру заказа без указания ваших персональных данных. Обратите внимание: анонимные результаты не подходят для оформления официальных медицинских документов. Уточнить перечень доступных анонимно тестов можно в медицинском офисе.',
+    products:[], slots:null
+  },
+];
+
+function openForum(){
+  document.body.classList.remove('arch-mode');
+  document.getElementById('roleNav').style.display='none';
+  document.getElementById('archBtn').style.display='none';
+  document.getElementById('avatar').style.display='none';
+  document.getElementById('forumArchBtn').style.display='block';
+  document.getElementById('forumAuthBtn').style.display='block';
+  document.getElementById('topSub').textContent='Интернет-клуб ИНВИТРО';
+  document.getElementById('topLogoSub').textContent='Форум 3630363.ru';
+  renderForum();
+  showView('forum');
+}
+function forumAuth(){
+  forumAuthed=!forumAuthed;
+  document.getElementById('forumAuthBtn').textContent = forumAuthed? 'Личный кабинет' : 'Вход / регистрация';
+  if(forumView==='ask') renderForumAsk();
+}
+function forumDoctorSVG(){
+  return '<svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'
+    // soft backdrop circles
+    +'<circle cx="200" cy="90" r="120" fill="rgba(255,255,255,0.05)"/>'
+    +'<circle cx="250" cy="200" r="80" fill="rgba(255,255,255,0.05)"/>'
+    // desk
+    +'<rect x="30" y="250" width="290" height="50" fill="rgba(255,255,255,0.14)"/>'
+    // monitor
+    +'<rect x="40" y="150" width="120" height="82" rx="8" fill="#ffffff"/>'
+    +'<rect x="40" y="150" width="120" height="82" rx="8" fill="none" stroke="rgba(0,0,0,0.05)"/>'
+    +'<rect x="52" y="163" width="56" height="8" rx="4" fill="#0091b3"/>'
+    +'<rect x="52" y="179" width="96" height="5" rx="2.5" fill="#d7e6ea"/>'
+    +'<rect x="52" y="190" width="96" height="5" rx="2.5" fill="#d7e6ea"/>'
+    +'<rect x="52" y="201" width="70" height="5" rx="2.5" fill="#d7e6ea"/>'
+    +'<rect x="52" y="214" width="40" height="7" rx="3.5" fill="#1faa5e"/>'
+    +'<rect x="92" y="232" width="16" height="14" fill="#eef4f6"/>'
+    +'<rect x="72" y="246" width="56" height="5" rx="2.5" fill="#ffffff"/>'
+    // chat bubble
+    +'<g><rect x="176" y="120" width="118" height="66" rx="14" fill="#ffffff"/>'
+    +'<path d="M196 186 l0 20 l20 -20 z" fill="#ffffff"/>'
+    +'<circle cx="200" cy="145" r="7" fill="#1faa5e"/>'
+    +'<rect x="214" y="135" width="66" height="6" rx="3" fill="#d7e6ea"/>'
+    +'<rect x="214" y="149" width="52" height="6" rx="3" fill="#d7e6ea"/>'
+    +'<rect x="214" y="163" width="40" height="6" rx="3" fill="#0091b3"/></g>'
+    // doctor: body (white coat)
+    +'<path d="M150 300 q0 -70 60 -70 q60 0 60 70 z" fill="#ffffff"/>'
+    +'<path d="M210 232 l-14 40 l14 12 l14 -12 z" fill="#eef4f6"/>'
+    // stethoscope
+    +'<path d="M196 240 q-10 26 8 40" fill="none" stroke="#0091b3" stroke-width="3"/>'
+    +'<circle cx="205" cy="284" r="6" fill="#0091b3"/>'
+    // neck + head
+    +'<rect x="201" y="212" width="18" height="24" rx="7" fill="#f0c9a8"/>'
+    +'<circle cx="210" cy="196" r="26" fill="#f6d3b3"/>'
+    +'<path d="M184 190 q0 -30 26 -30 q26 0 26 30 q-8 -12 -26 -12 q-18 0 -26 12 z" fill="#5a3b2e"/>'
+    +'<circle cx="201" cy="196" r="2.5" fill="#3a2a20"/><circle cx="219" cy="196" r="2.5" fill="#3a2a20"/>'
+    +'<path d="M204 206 q6 4 12 0" fill="none" stroke="#c98d6a" stroke-width="2" stroke-linecap="round"/>'
+    +'</svg>';
+}
+let forumView='home';
+function renderForum(){
+  forumView='home';
+  let h='<div class="forum-hero">'
+    +'<div class="fh-text">'
+    +'<span class="fh-badge">⚕️ Интернет-клуб ИНВИТРО</span>'
+    +'<h1>Бесплатная консультация у врачей ИНВИТРО с ответом в течение 24 часов</h1>'
+    +'<p>Задайте вопрос о подготовке к исследованиям, подборе анализов или интерпретации результатов — эксперты ИНВИТРО ответят бесплатно.</p>'
+    +'<button class="ask-big" onclick="forumAsk()">✍️ Задать вопрос</button>'
+    +'</div>'
+    +'<div class="fh-art">'+forumDoctorSVG()+'</div>'
+    +'</div>';
+  // навигатор по категориям
+  h+='<div class="forum-section-title">Категории</div>';
+  h+='<div class="forum-cats">'+FORUM_CATS.map(c=>
+    '<div class="forum-cat" onclick="forumCat(\''+c.id+'\')"><div class="fc-ico">'+c.ico+'</div>'
+    +'<div class="fc-txt"><div class="fc-name">'+c.name+'</div><div class="fc-cnt">'+c.cnt+' вопросов</div></div></div>').join('')+'</div>';
+  // последние вопросы
+  h+='<div class="forum-section-title">Последние вопросы</div>';
+  h+='<div class="forum-q-list">'+FORUM_QUESTIONS.map(qCard).join('')+'</div>';
+  document.getElementById('forumBody').innerHTML=h;
+}
+function qCard(q){
+  const answered=!!q.answer;
+  return '<div class="forum-q" onclick="forumQuestion(\''+q.id+'\')">'
+    +'<div class="fq-head"><span class="fq-cat">'+FORUM_CAT_NAME[q.cat]+'</span>'
+    +'<span class="fq-title">'+q.title+'</span><span class="fq-date">'+q.date+'</span></div>'
+    +'<div class="fq-preview">'+q.body+'</div>'
+    +'<div class="fq-meta"><span>'+q.author+' · '+q.city+'</span>'
+    +(answered?'<span class="fq-answered">✓ Есть ответ врача</span>':'<span class="fq-pending">На модерации</span>')+'</div></div>';
+}
+function forumCat(cid){
+  forumView='cat';
+  const list=FORUM_QUESTIONS.filter(q=>q.cat===cid);
+  let h='<div style="margin-bottom:16px"><span class="forum-back" onclick="renderForum()">← Все категории</span></div>';
+  h+='<div class="forum-section-title">'+FORUM_CAT_NAME[cid]+'</div>';
+  h+='<div class="forum-q-list">'+(list.length?list.map(qCard).join(''):'<div class="empty">В этой категории пока нет опубликованных вопросов</div>')+'</div>';
+  document.getElementById('forumBody').innerHTML=h;
+}
+function forumQuestion(qid){
+  forumView='q';
+  const q=FORUM_QUESTIONS.find(x=>x.id===qid);
+  let h='<div style="margin-bottom:16px"><span class="forum-back" onclick="renderForum()">← К списку вопросов</span></div>';
+  h+='<div class="fq-detail-q"><span class="fq-cat">'+FORUM_CAT_NAME[q.cat]+'</span>'
+    +'<div class="fq-title">'+q.title+'</div>'
+    +'<div class="fq-body">'+q.body+'</div>'
+    +'<div class="fq-city">'+q.author+' · '+q.city+' · '+q.date+'</div></div>';
+  // ответ врача
+  const initials=q.doctor.split(' ').slice(0,2).map(s=>s[0]).join('');
+  h+='<div class="fq-answer"><div class="fa-head"><div class="fa-doc">'+initials+'</div>'
+    +'<div><div class="fa-name">'+q.doctor+'</div><div class="fa-role">'+q.role+'</div></div></div>'
+    +'<div class="fa-body">'+q.answer+'</div>';
+  if(q.products && q.products.length){
+    h+='<div class="fa-products">'+q.products.map(p=>
+      '<div class="fa-product"><span class="fp-code">№ '+p.code+'</span><span class="fp-name">'+p.name+'</span>'
+      +'<a class="fp-link" href="'+p.url+'" target="_blank">на invitro.ru →</a></div>').join('')+'</div>';
+  }
+  if(q.slots && q.slots.length){
+    h+='<div class="fa-slots"><div class="fa-slots-title">Доступные слоты для записи в г. '+q.city+':</div>'
+      +q.slots.map(s=>'<div class="fa-slot"><span class="fs-time">'+s.time+'</span>'
+      +'<span class="fs-office">'+s.office+' <b>'+s.addr+' · '+s.service+'</b></span>'
+      +'<span class="fs-book">Записаться</span></div>').join('')+'</div>';
+  }
+  h+='</div>';
+  document.getElementById('forumBody').innerHTML=h;
+}
+function forumAsk(){
+  forumView='ask';
+  renderForumAsk();
+}
+function renderForumAsk(){
+  let h='<div style="margin-bottom:16px"><span class="forum-back" onclick="renderForum()">← На главную</span></div>';
+  if(!forumAuthed){
+    h+='<div class="forum-form"><h2>Требуется вход</h2>'
+      +'<div class="ff-sub">Чтобы задать вопрос врачу, войдите или зарегистрируйтесь в личном кабинете.</div>'
+      +'<div class="forum-auth-note">Неавторизованные пользователи не могут отправлять вопросы. Это демо — нажмите кнопку ниже, чтобы сымитировать вход.</div>'
+      +'<button class="btn btn-primary" style="width:100%;padding:12px" onclick="forumAuth()">Войти / зарегистрироваться</button></div>';
+    document.getElementById('forumBody').innerHTML=h;
+    return;
+  }
+  h+='<div class="forum-form"><h2>Задать вопрос врачу</h2>'
+    +'<div class="ff-sub">Ответ эксперта ИНВИТРО придёт в течение 24 часов после модерации.</div>'
+    +'<div class="forum-field"><label>Категория</label><select id="askCat">'
+    +FORUM_ASK_CATS.map(c=>'<option value="'+c.id+'">'+c.name+'</option>').join('')+'</select></div>'
+    +'<div class="forum-field"><label>Заголовок вопроса</label><input id="askTitle" placeholder="Коротко сформулируйте суть"></div>'
+    +'<div class="forum-field"><label>Город</label><input id="askCity" placeholder="Например, Москва"></div>'
+    +'<div class="forum-field"><label>Текст вопроса</label><textarea id="askText" placeholder="Опишите вопрос подробно…"></textarea></div>'
+    +'<div class="forum-field"><label class="forum-check"><input type="checkbox" id="askNotify"> Уведомить об одобрении или отказе в публикации?</label></div>'
+    +'<button class="btn btn-primary" style="width:100%;padding:12px" onclick="forumSubmit()">Отправить вопрос</button>'
+    +'<div id="askMsg" style="text-align:center;color:var(--green);font-weight:700;margin-top:12px"></div></div>';
+  document.getElementById('forumBody').innerHTML=h;
+}
+function forumSubmit(){
+  const t=(document.getElementById('askTitle').value||'').trim();
+  if(!t){ document.getElementById('askMsg').style.color='var(--red)'; document.getElementById('askMsg').textContent='Укажите заголовок вопроса'; return; }
+  document.getElementById('askMsg').style.color='var(--green)';
+  document.getElementById('askMsg').textContent='✓ Вопрос отправлен на модерацию. Ответ придёт в течение 24 часов.';
+}
+
 function openStockFromArch(){
   enterRole('office');
   currentOffice=OFFICES[0];
@@ -1453,225 +1795,103 @@ function goArch(){
   document.getElementById('roleNav').style.display='none';
   document.getElementById('archBtn').style.display='none';
   document.getElementById('avatar').style.display='none';
+  document.getElementById('forumArchBtn').style.display='none';
+  document.getElementById('forumAuthBtn').style.display='none';
   document.getElementById('topSub').textContent='';
-  document.getElementById('topLogoSub').textContent='Экосистема сервисов CX';
+  document.getElementById('topLogoSub').textContent='Экосистема сервисов коммерции';
   document.body.classList.add('arch-mode');
   renderArch();
   showView('arch');
 }
 // kind: 'proto' (синие, планируемые с прототипом) | 'exist' (зелёные, существующие) | 'plan' (белые пунктир, планируемые без прототипа)
-// сетка: 4 колонки, между ними свободные коридоры для ортогональных связей
-const COL=[24,286,548,810], CW=196, RH=64, ROW=[16,108,200,292,384];
-const ARCH_NODES=[
-  // колонка 0
-  {id:'price',   label:'Сервис сравнения цен', users:['—'], x:COL[0], y:ROW[0], w:CW,h:RH, role:null, kind:'plan'},
-  {id:'retail',  label:'Управление розницей',  users:['Управляющие CX','и розницей'], x:COL[0], y:ROW[1], w:CW,h:RH, role:'retail', kind:'proto'},
-  {id:'office',  label:'Страница МО',          users:['Сотрудники МО ·','Управляющие CX/розницей'], x:COL[0], y:ROW[2], w:CW,h:RH, role:'office', kind:'proto'},
-  {id:'video',   label:'Видео-аудит (ОВКМС)',  users:['ОВКМС'], x:COL[0], y:ROW[3], w:CW,h:RH, role:'ovk', kind:'proto'},
-  {id:'docu',    label:'Docuforce',            users:['Сотрудники МО'], x:COL[0], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
-  // колонка 1
-  {id:'rms',     label:'РМС',                  users:['Операторы КЦ · Управление','CX · Управление розницей'], x:COL[1], y:ROW[2], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'stock',   label:'Управление остатками', users:['Сотрудники МО'], x:COL[1], y:ROW[0], w:CW,h:RH, role:null, kind:'proto', click:'openStockFromArch'},
-  // колонка 2
-  {id:'armop',   label:'АРМ операторов',       users:['Операторы КЦ · ГОП МО'], x:COL[2], y:ROW[1], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'armreq',  label:'АРМ обращений',        users:['ОРО · ОВКМС'], x:COL[2], y:ROW[3], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'phone',   label:'Телефония',            users:['Операторы КЦ'], x:COL[2], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
-  // колонка 3
-  {id:'lkmo',    label:'ЛКМО',                 users:['Сотрудники МО · ГОП МО'], x:COL[3], y:ROW[0], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'armps',   label:'АРМПС',                users:['Сотрудники МО · ГОП МО'], x:COL[3], y:ROW[1], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'booking', label:'Доктор Букинг',        users:['Сотрудники МО'], x:COL[3], y:ROW[2], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'wand',    label:'WAND',                 users:['ВНД'], x:COL[3], y:ROW[3], w:CW,h:RH, role:null, kind:'exist'},
-  {id:'voice',   label:'Голосовой помощник',   users:['Управление CX'], x:COL[3], y:ROW[4], w:CW,h:RH, role:null, kind:'exist'},
+// разделы экосистемы (слева направо); каждый содержит список сервисов
+const ARCH_SECTIONS=[
+  {title:'Клиентские сервисы', nodes:[
+    {id:'phone',  label:'Телефония',          users:['Операторы КЦ'], kind:'exist'},
+    {id:'voice',  label:'Голосовой помощник',  users:['Управление CX'], kind:'exist'},
+    {id:'site',   label:'Сайт Invitro.ru',     users:['Клиенты'], kind:'exist'},
+    {id:'forum',  label:'Форум 3630363.ru',    users:['Врачи ОРО'], kind:'proto', click:'openForum'},
+  ]},
+  {title:'Сервисы 1-й линии', nodes:[
+    {id:'armps',  label:'АРМПС',               users:['Сотрудники МО · ГОП МО'], kind:'exist'},
+    {id:'booking',label:'Доктор Букинг',       users:['Сотрудники МО'], kind:'exist'},
+    {id:'wand',   label:'WAND',                users:['ВНД'], kind:'exist'},
+    {id:'armop',  label:'АРМ операторов',      users:['Операторы КЦ · ГОП МО'], kind:'exist'},
+    {id:'armreq', label:'АРМ обращений',       users:['ОРО · ОВКМС'], kind:'exist'},
+  ]},
+  {title:'Сервисы аналитики и управления', nodes:[
+    {id:'retail', label:'Управление розницей', users:['Управляющие CX','и розницей'], kind:'proto', role:'retail'},
+    {id:'video',  label:'Видео-аудит (ОВКМС)', users:['ОВКМС'], kind:'proto', role:'ovk'},
+    {id:'office', label:'Страница МО',         users:['Сотрудники МО ·','Управляющие CX/розницей'], kind:'proto', role:'office'},
+    {id:'price',  label:'Сервис сравнения цен',users:['—'], kind:'plan'},
+  ]},
+  {title:'Сервисы управления данными', nodes:[
+    {id:'rms',    label:'РМС',                 users:['Операторы КЦ · Управление','CX · Управление розницей'], kind:'exist'},
+    {id:'docu',   label:'Docuforce',           users:['Сотрудники МО'], kind:'exist'},
+    {id:'lkmo',   label:'ЛКМО',                users:['Сотрудники МО · ГОП МО'], kind:'exist'},
+    {id:'stock',  label:'Управление остатками',users:['Сотрудники МО'], kind:'proto', click:'openStockFromArch'},
+  ]},
 ];
-// links: [from,to,dashed]  dashed=true → планируемая интеграция
-const ARCH_LINKS=[
-  ['retail','office',false],
-  // страница МО ↔ оба АРМ (пунктир)
-  ['office','armop',true],['office','armreq',true],
-  // видео-аудит ↔ АРМ обращений (пунктир)
-  ['video','armreq',true],
-  // Docuforce ↔ оба АРМ (пунктир)
-  ['docu','armop',true],['docu','armreq',true],
-  // WAND ↔ только АРМ операторов (пунктир)
-  ['wand','armop',true],
-  // Доктор Букинг, АРМПС, ЛКМО ↔ АРМ операторов (обычная)
-  ['booking','armop',false],['armps','armop',false],['lkmo','armop',false],
-  // прежние связи сервисов со страницей МО
-  ['lkmo','office',false],['armps','office',false],['booking','armps',false],
-  // Телефония
-  ['phone','armop',false],
-  // Голосовой помощник
-  ['voice','phone',false],['voice','armop',false],
-  // РМС — обычные
-  ['rms','armps',false],['rms','armop',false],['rms','armreq',false],['rms','lkmo',false],['rms','booking',false],
-  // РМС — пунктирные
-  ['rms','retail',true],['rms','video',true],['rms','office',true],
-  // Сервис сравнения цен — пунктир
-  ['price','retail',true],['price','rms',true],
-  // Управление остатками ↔ Страница МО (пунктир)
-  ['stock','office',true],
-];
-function nodeById(id){return ARCH_NODES.find(n=>n.id===id);}
 // стили по категории узла
 const NODE_STYLE={
   proto:{fill:'var(--blue)', stroke:'var(--blue)', dash:'', txt:'#ffffff', usr:'#dbf3f9'},
   exist:{fill:'#1faa5e',     stroke:'#1faa5e',     dash:'', txt:'#ffffff', usr:'#dcf5e6'},
   plan: {fill:'#ffffff',     stroke:'#b8c7cd',     dash:' stroke-dasharray="5 3"', txt:'var(--ink)', usr:'var(--muted)'},
 };
+// перенос подписи по словам под заданную ширину (в символах)
+function wrapLabel(txt, maxChars){
+  const words=txt.split(' '); const lines=[]; let cur='';
+  words.forEach(w=>{
+    if((cur+' '+w).trim().length<=maxChars){ cur=(cur+' '+w).trim(); }
+    else { if(cur)lines.push(cur); cur=w; }
+  });
+  if(cur)lines.push(cur);
+  return lines.slice(0,2);
+}
 function renderArch(){
-  const W=1020,H=500;
-  // вертикальные коридоры между колонками (середина промежутка)
-  const CORR=[ (COL[0]+CW+COL[1])/2, (COL[1]+CW+COL[2])/2, (COL[2]+CW+COL[3])/2 ];
-  const colOf=n=>COL.indexOf(n.x);
-  // счётчики, чтобы параллельные линии не ложились друг на друга
-  const usedX={};
-  // проверка: отрезок пересекает прямоугольник (с запасом)
-  function hits(x1,y1,x2,y2,r){
-    const pad=3, rx1=r.x+pad, ry1=r.y+pad, rx2=r.x+r.w-pad, ry2=r.y+r.h-pad;
-    let t0=0,t1=1; const dx=x2-x1, dy=y2-y1;
-    const p=[-dx,dx,-dy,dy], q=[x1-rx1,rx2-x1,y1-ry1,ry2-y1];
-    for(let i=0;i<4;i++){
-      if(p[i]===0){ if(q[i]<0) return false; }
-      else{ const t=q[i]/p[i];
-        if(p[i]<0){ if(t>t1)return false; if(t>t0)t0=t; }
-        else{ if(t<t0)return false; if(t<t1)t1=t; } }
-    }
-    return true;
-  }
-  // путь чист, если ни один сегмент не задевает посторонний блок
-  function clean(pts,a,b){
-    for(let i=0;i<pts.length-1;i++){
-      for(const n of ARCH_NODES){
-        if(n.id===a.id||n.id===b.id)continue;
-        if(hits(pts[i][0],pts[i][1],pts[i+1][0],pts[i+1][1],n))return false;
-      }
-    }
-    return true;
-  }
-  const toD=pts=>'M'+pts.map(p=>p[0]+','+p[1]).join(' L');
-  function routePath(a,b){
-    const ca=colOf(a), cb=colOf(b);
-    const ay=a.y+a.h/2, by=b.y+b.h/2;
-    // кандидаты: разные коридоры + обходы сверху/снизу
-    const cands=[];
-    if(ca===cb){
-      // одна колонка: обходим сбоку (снаружи схемы)
-      const outL=a.x-18, outR=a.x+a.w+18;
-      [outL,outR].forEach(bx=>{
-        const ax0 = bx<a.x ? a.x : a.x+a.w;
-        const bx0 = bx<b.x ? b.x : b.x+b.w;
-        cands.push([[ax0,ay],[bx,ay],[bx,by],[bx0,by]]);
+  const secN=ARCH_SECTIONS.length;
+  const CW=234, GAP=22, PADX=16, HEADY=52, RH=76, RGAP=14;
+  const W=PADX*2 + secN*CW + (secN-1)*GAP;
+  const maxRows=Math.max(...ARCH_SECTIONS.map(s=>s.nodes.length));
+  const H=HEADY + maxRows*(RH+RGAP) + 14;
+  let svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-height:calc(100vh - 168px);display:block;margin:0 auto" font-family="inherit">';
+  ARCH_SECTIONS.forEach((sec,si)=>{
+    const x=PADX + si*(CW+GAP);
+    // фон раздела
+    svg+='<rect x="'+x+'" y="8" width="'+CW+'" height="'+(H-8)+'" rx="16" fill="#eef4f7"/>';
+    // плашка-заголовок раздела
+    const secLines=wrapLabel(sec.title,26);
+    const ty=secLines.length>1?24:30;
+    secLines.forEach((ln,i)=>{
+      svg+='<text x="'+(x+CW/2)+'" y="'+(ty+i*14)+'" text-anchor="middle" font-size="12.5" font-weight="800" fill="#005e78" letter-spacing="0.2">'+ln+'</text>';
+    });
+    sec.nodes.forEach((n,ri)=>{
+      const y=HEADY + ri*(RH+RGAP);
+      const s=NODE_STYLE[n.kind]||NODE_STYLE.plan;
+      const handler = n.role ? "enterRole('"+n.role+"')" : (n.click ? n.click+"()" : null);
+      const clickable=!!handler;
+      const bx=x+12, bw=CW-24, cx=x+CW/2;
+      svg+='<g class="arch-node'+(clickable?' clickable':'')+'"'+(clickable?' onclick="'+handler+'"':'')+'>';
+      svg+='<rect class="arch-rect" x="'+bx+'" y="'+y+'" width="'+bw+'" height="'+RH+'" rx="13" fill="'+s.fill+'" stroke="'+s.stroke+'" stroke-width="1.5"'+s.dash+'/>';
+      // подпись сервиса с переносом
+      const labLines=wrapLabel(n.label,20);
+      const usersN=n.users.length;
+      // вертикальное центрирование блока (label + users)
+      const totalLines=labLines.length+usersN;
+      const blockH=labLines.length*16 + usersN*12;
+      let ly=y + (RH-blockH)/2 + 13;
+      labLines.forEach(ln=>{
+        svg+='<text x="'+cx+'" y="'+ly+'" text-anchor="middle" font-size="13" font-weight="800" fill="'+s.txt+'">'+ln+'</text>';
+        ly+=16;
       });
-    } else {
-      const dir = cb>ca ? 1 : -1;
-      const ax = dir>0 ? a.x+a.w : a.x;
-      const bx = dir>0 ? b.x : b.x+b.w;
-      // пробуем каждый коридор между колонками
-      CORR.forEach(cx=>{ cands.push([[ax,ay],[cx,ay],[cx,by],[bx,by]]); });
-      // обход поверху / понизу (через свободные полосы над и под сеткой)
-      const top=ROW[0]-14, bot=ROW[ROW.length-1]+RH+14;
-      [top,bot].forEach(yy=>{
-        cands.push([[ax,ay],[ax+dir*18,ay],[ax+dir*18,yy],[bx-dir*18,yy],[bx-dir*18,by],[bx,by]]);
+      ly+=1;
+      n.users.forEach(line=>{
+        svg+='<text x="'+cx+'" y="'+ly+'" text-anchor="middle" font-size="9.5" fill="'+s.usr+'">'+line+'</text>';
+        ly+=12;
       });
-    }
-    // берём первый чистый; если нет — первый по списку
-    const ok=cands.find(c=>clean(c,a,b))||cands[0];
-    // лёгкий разброс по вертикальному сегменту, чтобы параллельные не сливались
-    return toD(ok);
-  }
-  let svg='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="max-height:calc(100vh - 178px);display:block;margin:0 auto">';
-  // 1) построить все пути как ломаные (списки точек)
-  const routed=[];
-  ARCH_LINKS.forEach(([f,t,dash],li)=>{
-    const a=nodeById(f),b=nodeById(t); if(!a||!b)return;
-    const ca=colOf(a),cb=colOf(b),ay=a.y+a.h/2,by=b.y+b.h/2;
-    const cands=[];
-    if(ca===cb){
-      [a.x-18,a.x+a.w+18].forEach(bx=>{const ax0=bx<a.x?a.x:a.x+a.w,bx0=bx<b.x?b.x:b.x+b.w;cands.push([[ax0,ay],[bx,ay],[bx,by],[bx0,by]]);});
-    }else{
-      const dir=cb>ca?1:-1,ax=dir>0?a.x+a.w:a.x,bx=dir>0?b.x:b.x+b.w;
-      CORR.forEach(cx=>{cands.push([[ax,ay],[cx,ay],[cx,by],[bx,by]]);});
-      const top=ROW[0]-14,bot=ROW[ROW.length-1]+RH+14;
-      [top,bot].forEach(yy=>{cands.push([[ax,ay],[ax+dir*18,ay],[ax+dir*18,yy],[bx-dir*18,yy],[bx-dir*18,by],[bx,by]]);});
-    }
-    const ok=cands.find(c=>clean(c,a,b))||cands[0];
-    routed.push({pts:ok.map(p=>p.slice()),dash,li});
-  });
-  // 2) РАЗВЕСТИ ПАРАЛЛЕЛЬНЫЕ: вертикали в одном коридоре — по X-полосам; горизонтали на одном Y — по Y-полосам
-  const LANE=6;
-  // вертикали: сгруппировать по округлённому X
-  const vGroups={};
-  routed.forEach((r,ri)=>{
-    for(let i=0;i<r.pts.length-1;i++){
-      if(r.pts[i][0]===r.pts[i+1][0]){ const key=Math.round(r.pts[i][0]); (vGroups[key]=vGroups[key]||[]).push({ri,i}); }
-    }
-  });
-  Object.values(vGroups).forEach(list=>{
-    if(list.length<2)return;
-    // распределить полосы симметрично вокруг исходного X
-    list.forEach((seg,k)=>{
-      const off=(k-(list.length-1)/2)*LANE;
-      routed[seg.ri].pts[seg.i][0]+=off; routed[seg.ri].pts[seg.i+1][0]+=off;
+      if(clickable)svg+='<text x="'+(bx+bw-10)+'" y="'+(y+19)+'" text-anchor="end" font-size="13" fill="'+(n.kind==='proto'?'#eaf9fc':'#fff')+'">→</text>';
+      svg+='</g>';
     });
-  });
-  // горизонтали: сгруппировать по округлённому Y
-  const hGroups={};
-  routed.forEach((r,ri)=>{
-    for(let i=0;i<r.pts.length-1;i++){
-      if(r.pts[i][1]===r.pts[i+1][1] && r.pts[i][0]!==r.pts[i+1][0]){ const key=Math.round(r.pts[i][1]); (hGroups[key]=hGroups[key]||[]).push({ri,i}); }
-    }
-  });
-  Object.values(hGroups).forEach(list=>{
-    if(list.length<2)return;
-    list.forEach((seg,k)=>{
-      const off=(k-(list.length-1)/2)*LANE;
-      routed[seg.ri].pts[seg.i][1]+=off; routed[seg.ri].pts[seg.i+1][1]+=off;
-    });
-  });
-  // 3) собрать вертикальные сегменты (после разведения) для мостиков
-  const verts=[];
-  routed.forEach((r,ri)=>{
-    for(let i=0;i<r.pts.length-1;i++){
-      const [x1,y1]=r.pts[i],[x2,y2]=r.pts[i+1];
-      if(x1===x2) verts.push({x:x1,y0:Math.min(y1,y2),y1:Math.max(y1,y2),ri});
-    }
-  });
-  // 4) отрисовать; мостик рисуем ТОЛЬКО на горизонтали и ТОЛЬКО один раз на пересечение
-  const R=4;
-  routed.forEach((r,ri)=>{
-    let d='M'+r.pts[0][0]+','+r.pts[0][1];
-    for(let i=0;i<r.pts.length-1;i++){
-      const [x1,y1]=r.pts[i],[x2,y2]=r.pts[i+1];
-      if(y1===y2 && x1!==x2){
-        const dir=x2>x1?1:-1;
-        // пересечения этой горизонтали с чужими вертикалями (строго внутри отрезка)
-        const cross=verts.filter(v=>v.ri!==ri && v.x>Math.min(x1,x2)+R && v.x<Math.max(x1,x2)-R && y1>v.y0+1 && y1<v.y1-1)
-                         .map(v=>v.x).sort((p,q)=>dir>0?p-q:q-p);
-        cross.forEach(vx=>{
-          d+=' L'+(vx-dir*R)+','+y1+' A'+R+','+R+' 0 0 '+(dir>0?1:0)+' '+(vx+dir*R)+','+y1;
-        });
-        d+=' L'+x2+','+y2;
-      } else {
-        d+=' L'+x2+','+y2;
-      }
-    }
-    svg+='<path d="'+d+'" fill="none" stroke="#c2d0d6" stroke-width="1.6" stroke-linejoin="round"'+(r.dash?' stroke-dasharray="6 4"':'')+'/>';
-  });
-  // nodes
-  ARCH_NODES.forEach(n=>{
-    const handler = n.role ? "enterRole('"+n.role+"')" : (n.click ? n.click+"()" : null);
-    const clickable=!!handler;
-    const s=NODE_STYLE[n.kind]||NODE_STYLE.plan;
-    const cx=n.x+n.w/2;
-    svg+='<g class="arch-node'+(clickable?' clickable':'')+'"'+(clickable?' onclick="'+handler+'"':'')+'>';
-    svg+='<rect class="arch-rect" x="'+n.x+'" y="'+n.y+'" width="'+n.w+'" height="'+n.h+'" rx="12" fill="'+s.fill+'" stroke="'+s.stroke+'" stroke-width="1.6"'+s.dash+'/>';
-    svg+='<text x="'+cx+'" y="'+(n.y+28)+'" text-anchor="middle" font-size="13.5" font-weight="800" fill="'+s.txt+'">'+n.label+'</text>';
-    const uy=n.users.length>1?n.y+44:n.y+48;
-    n.users.forEach((line,i)=>{
-      svg+='<text x="'+cx+'" y="'+(uy+i*12)+'" text-anchor="middle" font-size="9.5" fill="'+s.usr+'">'+line+'</text>';
-    });
-    if(clickable)svg+='<text x="'+(n.x+n.w-11)+'" y="'+(n.y+21)+'" text-anchor="end" font-size="12" fill="#dbf3f9">→</text>';
-    svg+='</g>';
   });
   svg+='</svg>';
   document.getElementById('archContainer').innerHTML=svg;
