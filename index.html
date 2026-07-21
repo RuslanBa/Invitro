@@ -325,6 +325,92 @@
   .forum-check input{width:auto;margin:0}
   .forum-auth-note{background:#fdf3dd;border:1px solid #f0c98a;border-radius:10px;padding:12px 14px;font-size:12.5px;color:#8a6d3b;margin-bottom:18px}
 
+  /* ===== мобильное приложение ОВКМС ===== */
+  .phone-stage{display:grid;grid-template-columns:auto 1fr;gap:38px;align-items:start;padding:8px 0}
+  @media(max-width:900px){.phone-stage{grid-template-columns:1fr}}
+  .phone-frame{width:360px;height:720px;background:#12232b;border-radius:42px;padding:12px;box-shadow:0 18px 50px rgba(0,0,0,.28);position:relative;flex-shrink:0}
+  .phone-notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:130px;height:26px;background:#12232b;border-radius:0 0 16px 16px;z-index:5}
+  .phone-screen{width:100%;height:100%;background:var(--white);border-radius:32px;overflow-y:auto;overflow-x:hidden;position:relative}
+  .phone-hint{padding-top:14px;max-width:420px}
+  .phone-hint h3{font-size:18px;font-weight:800;margin-bottom:10px}
+  .phone-hint p{font-size:13.5px;color:var(--muted);line-height:1.55;margin-bottom:10px}
+  .phone-demo-note{background:var(--blue-050);border:1px solid var(--blue-100);border-radius:9px;padding:9px 13px;font-size:12.5px;color:var(--blue-dark);font-weight:700;display:inline-block}
+  /* экраны внутри телефона */
+  .ma-top{background:var(--blue);color:#fff;padding:38px 18px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:4}
+  .ma-top .ma-back{font-size:20px;cursor:pointer;line-height:1}
+  .ma-top .ma-title{font-size:16px;font-weight:800;flex:1}
+  .ma-top .ma-sub{font-size:11px;color:#cdeef7;font-weight:600}
+  .ma-body{padding:16px 16px 30px}
+  .ma-logo{text-align:center;padding:56px 20px 22px}
+  .ma-logo .ml-brand{font-size:26px;font-weight:900;color:var(--blue);letter-spacing:-.5px}
+  .ma-logo .ml-sub{font-size:12px;color:var(--muted);font-weight:700;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+  .ma-field{margin-bottom:13px}
+  .ma-field label{display:block;font-size:11.5px;font-weight:700;margin-bottom:5px;color:var(--muted)}
+  .ma-field input,.ma-field select{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:11px;font-family:inherit;font-size:14px;background:var(--white)}
+  .ma-field input:focus,.ma-field select:focus{outline:none;border-color:var(--blue)}
+  .ma-btn{width:100%;padding:14px;border-radius:12px;font-size:14.5px;font-weight:800;background:var(--blue);color:#fff;margin-top:6px}
+  .ma-btn.ghost{background:var(--white);color:var(--blue);border:1.5px solid var(--blue-100)}
+  .ma-btn.green{background:var(--green)}
+  .ma-link{text-align:center;font-size:12.5px;color:var(--blue);font-weight:700;margin-top:14px;cursor:pointer}
+  .ma-menu-card{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:18px;margin-bottom:12px;cursor:pointer;transition:.12s;box-shadow:var(--shadow)}
+  .ma-menu-card:hover{border-color:var(--blue)}
+  .ma-menu-card .mc-ico{font-size:26px;margin-bottom:8px}
+  .ma-menu-card .mc-name{font-size:15.5px;font-weight:800;margin-bottom:3px}
+  .ma-menu-card .mc-desc{font-size:12px;color:var(--muted);line-height:1.4}
+  .ma-user{background:var(--blue-050);border-radius:13px;padding:13px 15px;margin-bottom:16px;display:flex;align-items:center;gap:11px}
+  .ma-user .mu-av{width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+  .ma-user .mu-name{font-size:13.5px;font-weight:800}
+  .ma-user .mu-role{font-size:11px;color:var(--muted)}
+  .ma-check{background:var(--white);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;cursor:pointer;transition:.12s}
+  .ma-check:hover{border-color:var(--blue)}
+  .ma-check .mk-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .ma-check .mk-mo{font-size:13.5px;font-weight:800;flex:1;line-height:1.25}
+  .ma-check .mk-pct{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+  .ma-check .mk-meta{font-size:11px;color:var(--muted);line-height:1.5}
+  .ma-check .mk-meta b{color:var(--ink);font-weight:700}
+  .ma-param{border-bottom:1px solid var(--line);padding:13px 0}
+  .ma-param:last-child{border-bottom:none}
+  .ma-param .mp-label{font-size:13px;font-weight:600;line-height:1.35;margin-bottom:9px}
+  .ma-param .mp-num{color:var(--muted);font-weight:800;margin-right:5px}
+  .ma-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+  .ma-seg button{padding:9px 4px;border-radius:9px;font-size:11.5px;font-weight:700;background:#eef4f6;color:var(--muted);border:1px solid transparent}
+  .ma-seg button.on-da{background:var(--green);color:#fff}
+  .ma-seg button.on-net{background:var(--red);color:#fff}
+  .ma-seg button.on-fix{background:#2f6fd1;color:#fff}
+  .ma-seg button.on-na{background:#d5dfe3;color:#42555c}
+  .ma-live{position:sticky;bottom:0;background:var(--white);border-top:1px solid var(--line);padding:12px 16px;margin:0 -16px -30px;box-shadow:0 -4px 14px rgba(0,0,0,.06)}
+  .ma-live-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+  .ma-live-pct{font-size:19px;font-weight:800}
+  .ma-live-txt{font-size:11.5px;color:var(--muted);flex:1;line-height:1.35}
+  .ma-empty{text-align:center;color:var(--muted);font-size:13px;padding:36px 16px}
+  .ma-toast{position:absolute;left:16px;right:16px;bottom:22px;background:#12232b;color:#fff;padding:13px 16px;border-radius:12px;font-size:13px;font-weight:700;text-align:center;z-index:20}
+
+  /* ===== сервис сравнения цен ===== */
+  .price-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:18px}
+  .price-kpi{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .price-kpi.win{border-color:var(--green);background:#f2fbf6}
+  .price-kpi .pk-lab{font-size:12.5px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+  .price-kpi .pk-val{font-size:30px;font-weight:800;letter-spacing:-1px;line-height:1}
+  .price-kpi .pk-sub{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .price-kpi .pk-bar{height:6px;border-radius:3px;background:#eef4f6;margin-top:10px;overflow:hidden}
+  .price-kpi .pk-bar span{display:block;height:100%;border-radius:3px}
+  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+  .price-table th{background:var(--white);padding:11px 12px;text-align:center;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;color:var(--muted);border-bottom:2px solid var(--line);white-space:nowrap}
+  .price-table th.prod{text-align:left;min-width:230px}
+  .price-table th.lab-inv{color:var(--blue-dark)}
+  .price-table td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:center;font-variant-numeric:tabular-nums}
+  .price-table td.prod{text-align:left;font-weight:700}
+  .price-table td.prod small{display:block;font-weight:400;color:var(--muted);font-size:11px;margin-top:2px}
+  .price-table tbody tr:hover td{background:#fafcfd}
+  .price-best{background:#e5f6ec!important;color:#12703f;font-weight:800;border-radius:7px}
+  .price-cell b{font-size:14px;font-weight:800}
+  .price-cell span{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
+  .price-cell.price-best span{color:#1a7a4a}
+  .price-grp{background:#f4f8fa;font-weight:800;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;color:var(--blue-dark)}
+  .price-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--muted);align-items:center}
+  .price-legend i{width:15px;height:14px;border-radius:4px;background:#e5f6ec;border:1px solid #b9e3cc;display:inline-block;margin-right:6px;vertical-align:-2px}
+  .price-src{font-size:11px;color:var(--muted);margin-top:10px;line-height:1.6}
+
   /* arch button in topbar */
   .arch-btn{padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700;background:var(--white);border:1px solid var(--line);color:var(--ink)}
   .arch-btn:hover{border-color:var(--blue);color:var(--blue)}
@@ -397,6 +483,37 @@
   <!-- ============ ФОРУМ 3630363.ru ============ -->
   <div id="view-forum" class="view">
     <div id="forumBody"></div>
+  </div>
+
+  <!-- ============ МОБИЛЬНОЕ ПРИЛОЖЕНИЕ ОВКМС ============ -->
+  <div id="view-ovkapp" class="view">
+    <div class="phone-stage">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="ovkAppScreen"></div>
+      </div>
+      <div class="phone-hint">
+        <h3>Мобильное приложение ОВКМС</h3>
+        <p>Прототип приложения для выездных проверок. Сотрудник ОВКМС входит в приложение, выбирает медицинский офис и заносит результаты проверки прямо на месте.</p>
+        <p>Данные, внесённые здесь, попадают в сводный отчёт ОВКМС в веб-версии.</p>
+        <div class="phone-demo-note">Демо-доступ: любой логин и пароль</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ СЕРВИС СРАВНЕНИЯ ЦЕН ============ -->
+  <div id="view-price" class="view">
+    <div class="page-head">
+      <div>
+        <div class="crumbs">Конкурентный анализ · г. Москва</div>
+        <h1>Сервис сравнения цен</h1>
+      </div>
+      <div class="period">
+        <label>Регион</label>
+        <select id="priceCity" onchange="renderPrice()"><option>Москва</option></select>
+      </div>
+    </div>
+    <div id="priceBody"></div>
   </div>
 
   <div id="view-dashboard" class="view">
@@ -1775,6 +1892,297 @@ function forumSubmit(){
   document.getElementById('askMsg').textContent='✓ Вопрос отправлен на модерацию. Ответ придёт в течение 24 часов.';
 }
 
+
+/* ============================================================
+   МОБИЛЬНОЕ ПРИЛОЖЕНИЕ ОВКМС
+   Данные пишутся в те же OVK_DATA, что и веб-версия,
+   поэтому результаты сразу видны в сводном отчёте.
+   ============================================================ */
+let maAuthed=false, maUser='', maScreen='login';
+let maDraft={}, maDraftUid=null, maEditingId=null;
+// журнал проверок сотрудника: {id, uid, created, updated, answers}
+const MA_CHECKS=[];
+function maSeedChecks(){
+  if(MA_CHECKS.length)return;
+  [0,1,2].forEach((k,i)=>{
+    const o=OFFICES[k*7+3]; if(!o)return;
+    const ans=JSON.parse(JSON.stringify(OVK_DATA[o.uid]||{}));
+    MA_CHECKS.push({id:'chk'+(i+1), uid:o.uid, created:dateShift(-(14-i*5)), updated:dateShift(-(12-i*5)), answers:ans});
+  });
+}
+function openOvkApp(){
+  document.body.classList.remove('arch-mode');
+  ['roleNav','archBtn','avatar','forumArchBtn','forumAuthBtn'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  document.getElementById('forumArchBtn').style.display='block'; // кнопка возврата к схеме
+  document.getElementById('topSub').textContent='Выездные проверки';
+  document.getElementById('topLogoSub').textContent='Приложение ОВКМС';
+  maSeedChecks();
+  maScreen = maAuthed? 'menu':'login';
+  renderOvkApp();
+  showView('ovkapp');
+}
+function maGo(s){ maScreen=s; renderOvkApp(); }
+function maLogin(){
+  const l=(document.getElementById('maLogin')||{}).value||'';
+  maUser = l.trim() || 'Сотрудник ОВКМС';
+  maAuthed=true; maGo('menu');
+}
+function maLogout(){ maAuthed=false; maGo('login'); }
+function maInitials(n){ const p=n.split(' ').filter(Boolean); return (p[0]||'О')[0].toUpperCase()+((p[1]||'В')[0]||'').toUpperCase(); }
+// результат по набору ответов
+function maResult(ans){
+  let scored=0,yes=0,fixed=0;
+  OVK_PARAMS.forEach(p=>{
+    if(!FIELD_TYPES[p.type].scored)return;
+    const v=ans[p.id]; if(v===undefined||v==='na')return;
+    scored++; if(v==='da')yes++; else if(v==='fix'){yes++;fixed++;}
+  });
+  return {pct: scored?Math.round(yes/scored*100):0, scored, yes, fixed};
+}
+function renderOvkApp(){
+  const S=document.getElementById('ovkAppScreen');
+  if(maScreen==='login'){ S.innerHTML=maLoginHtml(); return; }
+  if(maScreen==='menu'){ S.innerHTML=maMenuHtml(); return; }
+  if(maScreen==='past'){ S.innerHTML=maPastHtml(); return; }
+  if(maScreen==='pickmo'){ S.innerHTML=maPickMoHtml(); return; }
+  if(maScreen==='form'){ S.innerHTML=maFormHtml(); maUpdateLive(); return; }
+}
+function maLoginHtml(){
+  return '<div class="ma-logo"><div class="ml-brand">ИНВИТРО</div><div class="ml-sub">ОВКМС · выездные проверки</div></div>'
+    +'<div class="ma-body">'
+    +'<div class="ma-field"><label>Логин</label><input id="maLogin" placeholder="Фамилия И.О." value="Смирнова А.В."></div>'
+    +'<div class="ma-field"><label>Пароль</label><input type="password" placeholder="••••••••" value="demo1234"></div>'
+    +'<button class="ma-btn" onclick="maLogin()">Войти</button>'
+    +'<button class="ma-btn ghost" style="margin-top:9px" onclick="maLogin()">Зарегистрироваться</button>'
+    +'<div class="ma-link" onclick="maLogin()">Забыли пароль?</div>'
+    +'<div style="text-align:center;font-size:11px;color:var(--muted);margin-top:26px;line-height:1.5">Демо-режим: подойдёт любой<br>логин и пароль</div>'
+    +'</div>';
+}
+function maMenuHtml(){
+  const mine=MA_CHECKS.length;
+  return '<div class="ma-top"><div class="ma-title">Главная<div class="ma-sub">Выездные проверки ОВКМС</div></div></div>'
+    +'<div class="ma-body">'
+    +'<div class="ma-user"><div class="mu-av">'+maInitials(maUser)+'</div><div><div class="mu-name">'+maUser+'</div><div class="mu-role">специалист ОВКМС</div></div></div>'
+    +'<div class="ma-menu-card" onclick="maGo(\'past\')"><div class="mc-ico">📋</div><div class="mc-name">Прошлые проверки</div><div class="mc-desc">Ваши проверки с результатами — '+mine+' шт. Можно открыть и скорректировать.</div></div>'
+    +'<div class="ma-menu-card" onclick="maGo(\'pickmo\')"><div class="mc-ico">➕</div><div class="mc-name">Новая проверка</div><div class="mc-desc">Выберите медицинский офис и заполните параметры чек-листа.</div></div>'
+    +'<div class="ma-link" style="margin-top:22px" onclick="maLogout()">Выйти из аккаунта</div>'
+    +'</div>';
+}
+function maPastHtml(){
+  let h='<div class="ma-top"><span class="ma-back" onclick="maGo(\'menu\')">‹</span><div class="ma-title">Прошлые проверки<div class="ma-sub">'+MA_CHECKS.length+' проверок</div></div></div><div class="ma-body">';
+  if(!MA_CHECKS.length){ h+='<div class="ma-empty">Вы ещё не проводили проверок</div></div>'; return h; }
+  MA_CHECKS.slice().sort((a,b)=>b.id.localeCompare(a.id)).forEach(c=>{
+    const o=OFFICES.find(x=>x.uid===c.uid); const r=maResult(c.answers); const st=pctStatus(r.pct);
+    h+='<div class="ma-check" onclick="maOpenCheck(\''+c.id+'\')">'
+      +'<div class="mk-head"><div class="mk-mo">'+o.name+'</div><div class="mk-pct score-'+st+'">'+r.pct+'%</div></div>'
+      +'<div class="mk-meta">Код МО: <b>'+o.id+'</b> · '+o.city+'<br>'
+      +'Оценено пунктов: <b>'+r.scored+'</b> из '+OVK_PARAMS.filter(p=>FIELD_TYPES[p.type].scored).length
+      +(r.fixed?' · испр.: <b>'+r.fixed+'</b>':'')+'<br>'
+      +'Создана: <b>'+c.created+'</b> · изменена: <b>'+c.updated+'</b></div></div>';
+  });
+  h+='</div>'; return h;
+}
+function maOpenCheck(id){
+  const c=MA_CHECKS.find(x=>x.id===id); if(!c)return;
+  maEditingId=id; maDraftUid=c.uid; maDraft=JSON.parse(JSON.stringify(c.answers));
+  maGo('form');
+}
+function maPickMoHtml(){
+  let h='<div class="ma-top"><span class="ma-back" onclick="maGo(\'menu\')">‹</span><div class="ma-title">Новая проверка<div class="ma-sub">Выберите медицинский офис</div></div></div><div class="ma-body">'
+    +'<div class="ma-field"><label>Поиск по названию или коду</label><input id="maMoSearch" placeholder="Например, Москва или МО-0042" oninput="renderMaMoList()"></div>'
+    +'<div id="maMoList"></div></div>';
+  setTimeout(renderMaMoList,0);
+  return h;
+}
+function renderMaMoList(){
+  const el=document.getElementById('maMoList'); if(!el)return;
+  const q=((document.getElementById('maMoSearch')||{}).value||'').toLowerCase().trim();
+  const list=OFFICES.filter(o=>!q||o.name.toLowerCase().includes(q)||o.id.toLowerCase().includes(q)).slice(0,40);
+  el.innerHTML=list.map(o=>
+    '<div class="ma-check" onclick="maStartCheck('+o.uid+')"><div class="mk-head"><div class="mk-mo">'+o.name+'</div><div style="color:var(--blue);font-weight:800">›</div></div>'
+    +'<div class="mk-meta">Код: <b>'+o.id+'</b> · '+o.city+' · '+aggById(o.agg).name+'</div></div>'
+  ).join('')||'<div class="ma-empty">Ничего не найдено</div>';
+}
+function maStartCheck(uid){
+  maEditingId=null; maDraftUid=uid; maDraft={};
+  maGo('form');
+}
+function maFormHtml(){
+  const o=OFFICES.find(x=>x.uid===maDraftUid);
+  let h='<div class="ma-top"><span class="ma-back" onclick="maGo(\''+(maEditingId?'past':'pickmo')+'\')">‹</span>'
+    +'<div class="ma-title">'+(maEditingId?'Проверка':'Новая проверка')+'<div class="ma-sub">'+o.name+' · '+o.id+'</div></div></div>'
+    +'<div class="ma-body">';
+  OVK_PARAMS.forEach((p,i)=>{
+    const v=maDraft[p.id];
+    h+='<div class="ma-param"><div class="mp-label"><span class="mp-num">'+(i+1)+'.</span>'+p.label+'</div>';
+    if(p.type==='yesno'){
+      h+='<div class="ma-seg">'
+        +'<button class="'+(v==='da'?'on-da':'')+'" onclick="maSet(\''+p.id+'\',\'da\')">Да</button>'
+        +'<button class="'+(v==='net'?'on-net':'')+'" onclick="maSet(\''+p.id+'\',\'net\')">Нет</button>'
+        +'<button class="'+(v==='fix'?'on-fix':'')+'" onclick="maSet(\''+p.id+'\',\'fix\')">Испр.</button>'
+        +'<button class="'+(v===undefined||v==='na'?'on-na':'')+'" onclick="maSet(\''+p.id+'\',\'na\')">—</button></div>';
+    } else if(p.type==='select'){
+      h+='<div class="ma-field" style="margin:0"><select onchange="maSet(\''+p.id+'\',this.value)">'
+        +'<option value="">Не выбрано</option>'
+        +(p.options||[]).map(op=>'<option'+(v===op?' selected':'')+'>'+op+'</option>').join('')+'</select></div>';
+    } else if(p.type==='number'){
+      h+='<div class="ma-field" style="margin:0"><input type="number" value="'+(v!==undefined?v:'')+'" onchange="maSet(\''+p.id+'\',this.value)"></div>';
+    } else {
+      h+='<div class="ma-field" style="margin:0"><input value="'+(v!==undefined?v:'')+'" placeholder="Комментарий" onchange="maSet(\''+p.id+'\',this.value)"></div>';
+    }
+    h+='</div>';
+  });
+  h+='<div class="ma-live"><div class="ma-live-row"><span class="ma-live-pct" id="maLivePct">0%</span><span class="ma-live-txt" id="maLiveTxt"></span></div>'
+    +'<button class="ma-btn green" onclick="maSave()">Сохранить</button></div>';
+  h+='</div>';
+  return h;
+}
+function maSet(pid,val){
+  if(val==='na'||val==='')delete maDraft[pid]; else maDraft[pid]=val;
+  // перерисуем только сегменты этого параметра — проще перерисовать форму, сохранив прокрутку
+  const sc=document.getElementById('ovkAppScreen'); const y=sc.scrollTop;
+  sc.innerHTML=maFormHtml(); maUpdateLive(); sc.scrollTop=y;
+}
+function maUpdateLive(){
+  const r=maResult(maDraft); const st=pctStatus(r.pct);
+  const pe=document.getElementById('maLivePct'), te=document.getElementById('maLiveTxt');
+  if(!pe)return;
+  pe.textContent=r.pct+'%'; pe.className='ma-live-pct score-'+st;
+  te.innerHTML='Оценено <b>'+r.scored+'</b> из '+OVK_PARAMS.filter(p=>FIELD_TYPES[p.type].scored).length+' пунктов'+(r.fixed?' · испр.: '+r.fixed:'');
+}
+function maSave(){
+  const today=dateShift(0);
+  // пишем в общий OVK_DATA — результат появится в сводном отчёте
+  OVK_DATA[maDraftUid]=Object.assign({}, OVK_DATA[maDraftUid]||{}, maDraft);
+  if(maEditingId){
+    const c=MA_CHECKS.find(x=>x.id===maEditingId);
+    c.answers=JSON.parse(JSON.stringify(maDraft)); c.updated=today;
+  } else {
+    MA_CHECKS.push({id:'chk'+(MA_CHECKS.length+1)+'_'+Date.now(), uid:maDraftUid, created:today, updated:today, answers:JSON.parse(JSON.stringify(maDraft))});
+  }
+  const sc=document.getElementById('ovkAppScreen');
+  const t=document.createElement('div'); t.className='ma-toast'; t.textContent='✓ Проверка сохранена';
+  sc.appendChild(t); setTimeout(()=>{ maGo('past'); },1100);
+}
+
+
+/* ============================================================
+   СЕРВИС СРАВНЕНИЯ ЦЕН
+   Данные собраны с сайтов лабораторий и агрегатора pro-labs.ru
+   (г. Москва, июль 2026). Доплаты за срочность не учитываются.
+   ============================================================ */
+const PRICE_LABS=[
+  {id:'inv', name:'ИНВИТРО', site:'invitro.ru', own:true},
+  {id:'kdl', name:'КДЛ',     site:'kdl.ru'},
+  {id:'gem', name:'Гемотест',site:'gemotest.ru'},
+];
+// цена (₽) и срок готовности (дней) по каждому продукту
+const PRICE_ROWS=[
+  {name:'Общий анализ мочи', note:'моча, разовая порция',
+   inv:{p:460,d:1}, kdl:{p:465,d:1}, gem:{p:400,d:1}},
+  {name:'Витамин D и ферритин', note:'комплекс: 25-OH витамин D + ферритин',
+   inv:{p:3460,d:1}, kdl:{p:3460,d:1}, gem:{p:1290,d:1}},
+  {name:'Холестерин общий', note:'венозная кровь',
+   inv:{p:420,d:1}, kdl:{p:420,d:1}, gem:{p:370,d:1}},
+  {name:'ТТГ', note:'тиреотропный гормон, венозная кровь',
+   inv:{p:710,d:1}, kdl:{p:700,d:1}, gem:{p:490,d:1}},
+  {name:'Глюкоза', note:'венозная кровь',
+   inv:{p:370,d:1}, kdl:{p:370,d:1}, gem:{p:310,d:1}},
+];
+// взятие биоматериала (венозная кровь)
+const PRICE_TAKE={inv:310, kdl:310, gem:330};
+
+function openPriceCompare(){
+  document.body.classList.remove('arch-mode');
+  ['roleNav','archBtn','avatar','forumAuthBtn'].forEach(id=>{const e=document.getElementById(id);if(e)e.style.display='none';});
+  document.getElementById('forumArchBtn').style.display='block';
+  document.getElementById('topSub').textContent='Конкурентный анализ цен';
+  document.getElementById('topLogoSub').textContent='Сервис сравнения цен';
+  renderPrice();
+  showView('price');
+}
+function priceMin(vals){ return Math.min.apply(null, vals.filter(v=>v!==null&&v!==undefined)); }
+function renderPrice(){
+  // доля топ-цен: по каждому продукту считаем, у кого минимальная цена (может быть ничья)
+  const wins={inv:0,kdl:0,gem:0};
+  PRICE_ROWS.forEach(r=>{
+    const m=priceMin(PRICE_LABS.map(l=>r[l.id].p));
+    PRICE_LABS.forEach(l=>{ if(r[l.id].p===m) wins[l.id]++; });
+  });
+  const total=PRICE_ROWS.length;
+  const share=id=>Math.round(wins[id]/total*100);
+  const bestShare=Math.max(...PRICE_LABS.map(l=>share(l.id)));
+
+  // KPI-карточки
+  let h='<div class="price-kpis">';
+  PRICE_LABS.forEach(l=>{
+    const s=share(l.id);
+    const col = s>=60?'var(--green)': s>=30?'var(--amber)':'var(--red)';
+    h+='<div class="price-kpi'+(s===bestShare?' win':'')+'">'
+      +'<div class="pk-lab">'+(l.own?'⭐ ':'')+l.name+' <span style="font-weight:600;color:var(--muted);font-size:11px">'+l.site+'</span></div>'
+      +'<div class="pk-val" style="color:'+col+'">'+s+'%</div>'
+      +'<div class="pk-sub">доля топ-цен на рынке · лучшая цена в '+wins[l.id]+' из '+total+' продуктов</div>'
+      +'<div class="pk-bar"><span style="width:'+s+'%;background:'+col+'"></span></div></div>';
+  });
+  h+='</div>';
+
+  // таблица
+  h+='<div class="panel panel-pad"><div style="overflow-x:auto"><table class="price-table"><thead><tr>'
+    +'<th class="prod">Продукт</th>'
+    +PRICE_LABS.map(l=>'<th'+(l.own?' class="lab-inv"':'')+'>'+(l.own?'⭐ ':'')+l.name+'</th>').join('')
+    +'</tr></thead><tbody>';
+  // группа: цена продукта
+  h+='<tr><td class="price-grp" colspan="'+(PRICE_LABS.length+1)+'">Цена исследования, ₽</td></tr>';
+  PRICE_ROWS.forEach(r=>{
+    const m=priceMin(PRICE_LABS.map(l=>r[l.id].p));
+    h+='<tr><td class="prod">'+r.name+'<small>'+r.note+'</small></td>';
+    PRICE_LABS.forEach(l=>{
+      const c=r[l.id]; const best=c.p===m;
+      h+='<td class="price-cell'+(best?' price-best':'')+'"><b>'+fmt(c.p)+' ₽</b><span>'+c.d+' дн.</span></td>';
+    });
+    h+='</tr>';
+  });
+  // группа: срок готовности
+  const dMin=priceMin(PRICE_ROWS.map(r=>Math.max(...PRICE_LABS.map(l=>r[l.id].d))));
+  h+='<tr><td class="price-grp" colspan="'+(PRICE_LABS.length+1)+'">Срок готовности</td></tr>';
+  h+='<tr><td class="prod">Средний срок по выборке<small>рабочих дней, без учёта срочного режима</small></td>';
+  PRICE_LABS.forEach(l=>{
+    const avg=PRICE_ROWS.reduce((s,r)=>s+r[l.id].d,0)/PRICE_ROWS.length;
+    const allAvg=PRICE_LABS.map(x=>PRICE_ROWS.reduce((s,r)=>s+r[x.id].d,0)/PRICE_ROWS.length);
+    const best=avg===Math.min.apply(null,allAvg);
+    h+='<td class="price-cell'+(best?' price-best':'')+'"><b>'+avg.toFixed(1)+' дн.</b></td>';
+  });
+  h+='</tr>';
+  // группа: взятие крови
+  const tMin=priceMin(PRICE_LABS.map(l=>PRICE_TAKE[l.id]));
+  h+='<tr><td class="price-grp" colspan="'+(PRICE_LABS.length+1)+'">Дополнительные услуги</td></tr>';
+  h+='<tr><td class="prod">Взятие крови из вены<small>оплачивается отдельно от исследования</small></td>';
+  PRICE_LABS.forEach(l=>{
+    const v=PRICE_TAKE[l.id]; const best=v===tMin;
+    h+='<td class="price-cell'+(best?' price-best':'')+'"><b>'+fmt(v)+' ₽</b></td>';
+  });
+  h+='</tr>';
+  // итоговая корзина
+  h+='<tr><td class="price-grp" colspan="'+(PRICE_LABS.length+1)+'">Итого по выборке</td></tr>';
+  const sums=PRICE_LABS.map(l=>PRICE_ROWS.reduce((s,r)=>s+r[l.id].p,0)+PRICE_TAKE[l.id]);
+  const sMin=Math.min.apply(null,sums);
+  h+='<tr><td class="prod">Все 5 продуктов + взятие крови<small>суммарная стоимость корзины</small></td>';
+  PRICE_LABS.forEach((l,i)=>{
+    const best=sums[i]===sMin;
+    h+='<td class="price-cell'+(best?' price-best':'')+'"><b>'+fmt(sums[i])+' ₽</b>'
+      +(best?'<span>лучшая цена</span>':'<span>+'+fmt(sums[i]-sMin)+' ₽</span>')+'</td>';
+  });
+  h+='</tr>';
+  h+='</tbody></table></div>';
+  h+='<div class="price-legend"><span><i></i> лучший показатель среди сравниваемых сетей</span>'
+    +'<span style="margin-left:auto">Сравниваются 3 сети: ИНВИТРО, КДЛ, Гемотест</span></div>';
+  h+='<div class="price-src"><b>Источники:</b> invitro.ru, kdl.ru, gemotest.ru и агрегатор pro-labs.ru · регион: Москва · '
+    +'Доплаты за срочность не учитываются. У Гемотеста на комплекс «Витамин D и ферритин» действует акционная цена. '
+    +'«Доля топ-цен на рынке» — процент продуктов, по которым у сети минимальная цена среди сравниваемых.</div>';
+  h+='</div>';
+  document.getElementById('priceBody').innerHTML=h;
+}
+
 function openStockFromArch(){
   enterRole('office');
   currentOffice=OFFICES[0];
@@ -1818,18 +2226,21 @@ const ARCH_SECTIONS=[
     {id:'wand',   label:'WAND',                users:['ВНД'], kind:'exist'},
     {id:'armop',  label:'АРМ операторов',      users:['Операторы КЦ · ГОП МО'], kind:'exist'},
     {id:'armreq', label:'АРМ обращений',       users:['ОРО · ОВКМС'], kind:'exist'},
+    {id:'bitrix', label:'Битрикс24',           users:['B2B розница'], kind:'exist'},
   ]},
   {title:'Сервисы аналитики и управления', nodes:[
     {id:'retail', label:'Управление розницей', users:['Управляющие CX','и розницей'], kind:'proto', role:'retail'},
     {id:'video',  label:'Видео-аудит (ОВКМС)', users:['ОВКМС'], kind:'proto', role:'ovk'},
     {id:'office', label:'Страница МО',         users:['Сотрудники МО ·','Управляющие CX/розницей'], kind:'proto', role:'office'},
-    {id:'price',  label:'Сервис сравнения цен',users:['—'], kind:'plan'},
+    {id:'ovkapp', label:'Приложение ОВКМС',    users:['ОВКМС'], kind:'proto', click:'openOvkApp'},
+    {id:'price',  label:'Сервис сравнения цен',users:['Управляющие розницей'], kind:'proto', click:'openPriceCompare'},
   ]},
   {title:'Сервисы управления данными', nodes:[
     {id:'rms',    label:'РМС',                 users:['Операторы КЦ · Управление','CX · Управление розницей'], kind:'exist'},
     {id:'docu',   label:'Docuforce',           users:['Сотрудники МО'], kind:'exist'},
     {id:'lkmo',   label:'ЛКМО',                users:['Сотрудники МО · ГОП МО'], kind:'exist'},
     {id:'stock',  label:'Управление остатками',users:['Сотрудники МО'], kind:'proto', click:'openStockFromArch'},
+    {id:'1c',     label:'1С',                  users:['Сотрудники МО'], kind:'exist'},
   ]},
 ];
 // стили по категории узла
